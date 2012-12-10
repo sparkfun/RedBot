@@ -9,8 +9,8 @@
 <grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.005" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
-<layer number="2" name="5V" color="1" fill="3" visible="no" active="yes"/>
-<layer number="15" name="Gnd" color="4" fill="6" visible="no" active="yes"/>
+<layer number="2" name="5V" color="1" fill="3" visible="yes" active="yes"/>
+<layer number="15" name="Gnd" color="4" fill="6" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
 <layer number="17" name="Pads" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="18" name="Vias" color="2" fill="1" visible="yes" active="yes"/>
@@ -173,7 +173,7 @@
 <text x="64.135" y="44.196" size="0.8128" layer="21" font="vector" ratio="15">10</text>
 <text x="42.037" y="48.387" size="0.8128" layer="21" font="vector" ratio="15">XBEE HW SERIAL</text>
 <text x="42.037" y="39.751" size="0.8128" layer="21" font="vector" ratio="15">XBEE SW SERIAL</text>
-<text x="16.51" y="15.24" size="1.778" layer="21" font="vector" ratio="15" rot="R90" align="center">V_IN
+<text x="16.383" y="16.764" size="1.778" layer="21" font="vector" ratio="15" rot="R90" align="center">V_IN
 6-9V</text>
 <text x="78.486" y="16.51" size="0.8128" layer="21" font="vector" ratio="15" align="center">TX</text>
 <text x="78.486" y="15.24" size="0.8128" layer="21" font="vector" ratio="15" align="center">RX</text>
@@ -199,6 +199,8 @@ MOTOR</text>
 <text x="63.373" y="41.529" size="0.8128" layer="21" font="vector" ratio="15">POW</text>
 <text x="71.755" y="41.529" size="0.8128" layer="21" font="vector" ratio="15">POW</text>
 <text x="3.81" y="-16.51" size="1.778" layer="27" font="vector" ratio="15">M. Hord</text>
+<text x="18.034" y="10.668" size="1.778" layer="21" font="vector" ratio="15">+</text>
+<text x="18.161" y="8.128" size="1.778" layer="21" font="vector" ratio="15">-</text>
 </plain>
 <libraries>
 <library name="SparkFun-Aesthetics">
@@ -1882,6 +1884,7 @@ design rules under a new name.
 <attribute name="PROD_ID" value="RES-00824" x="16.51" y="25.4" size="1.778" layer="27" font="vector" ratio="15" display="off"/>
 <attribute name="VALUE" value="10k" x="16.51" y="25.4" size="1.778" layer="27" font="vector" ratio="15" display="off"/>
 </element>
+<element name="JP16" library="SparkFun-Connectors" package="1X02" value="" x="16.51" y="8.89" rot="R90"/>
 </elements>
 <signals>
 <signal name="GND">
@@ -2086,6 +2089,7 @@ design rules under a new name.
 <wire x1="18.76" y1="21.885" x2="18.76" y2="19.975" width="0.3048" layer="1"/>
 <wire x1="18.76" y1="19.975" x2="19.558" y2="19.177" width="0.3048" layer="1"/>
 <via x="19.558" y="19.177" extent="1-16" drill="0.508"/>
+<contactref element="JP16" pad="1"/>
 </signal>
 <signal name="SENSOR_0/SW_TXO">
 <contactref element="U1" pad="23"/>
@@ -2727,6 +2731,8 @@ design rules under a new name.
 <wire x1="17.16" y1="25.4" x2="17.16" y2="24.526" width="0.3048" layer="1"/>
 <wire x1="17.16" y1="24.526" x2="16.002" y2="23.368" width="0.3048" layer="1"/>
 <wire x1="4.2" y1="24.13" x2="4.2" y2="23.25" width="0.3048" layer="1"/>
+<contactref element="JP16" pad="2"/>
+<wire x1="16.51" y1="11.43" x2="16.51" y2="19.05" width="1.016" layer="15"/>
 </signal>
 <signal name="N$23">
 <contactref element="Y1" pad="3"/>

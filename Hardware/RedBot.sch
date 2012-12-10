@@ -9573,6 +9573,9 @@ LILYPAD- DIO-09910&lt;br&gt;</description>
 <part name="GND20" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 <part name="V_GATE1" library="SparkFun-Aesthetics" deviceset="V_BATT" device="" value="V_GATED"/>
 <part name="U$4" library="SparkFun-Aesthetics" deviceset="V_BATT" device=""/>
+<part name="JP16" library="SparkFun-Connectors" deviceset="M02" device="PTH"/>
+<part name="GND21" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
+<part name="U$6" library="SparkFun-Aesthetics" deviceset="V_BATT" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -9709,6 +9712,9 @@ LILYPAD- DIO-09910&lt;br&gt;</description>
 <instance part="GND20" gate="1" x="132.08" y="30.48"/>
 <instance part="V_GATE1" gate="G$1" x="83.82" y="50.8"/>
 <instance part="U$4" gate="G$1" x="106.68" y="50.8"/>
+<instance part="JP16" gate="G$1" x="15.24" y="22.86"/>
+<instance part="GND21" gate="1" x="27.94" y="17.78"/>
+<instance part="U$6" gate="G$1" x="27.94" y="27.94"/>
 </instances>
 <busses>
 </busses>
@@ -10232,6 +10238,12 @@ LILYPAD- DIO-09910&lt;br&gt;</description>
 <pinref part="U3" gate="G$1" pin="GND"/>
 <wire x1="132.08" y1="43.18" x2="134.62" y2="43.18" width="0.1524" layer="91"/>
 </segment>
+<segment>
+<pinref part="JP16" gate="G$1" pin="1"/>
+<pinref part="GND21" gate="1" pin="GND"/>
+<wire x1="22.86" y1="22.86" x2="27.94" y2="22.86" width="0.1524" layer="91"/>
+<wire x1="27.94" y1="22.86" x2="27.94" y2="20.32" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="5V" class="0">
 <segment>
@@ -10629,6 +10641,12 @@ LILYPAD- DIO-09910&lt;br&gt;</description>
 <wire x1="111.76" y1="48.26" x2="106.68" y2="48.26" width="0.1524" layer="91"/>
 <wire x1="106.68" y1="48.26" x2="106.68" y2="50.8" width="0.1524" layer="91"/>
 <pinref part="U$4" gate="G$1" pin="V_BATT"/>
+</segment>
+<segment>
+<pinref part="JP16" gate="G$1" pin="2"/>
+<wire x1="22.86" y1="25.4" x2="27.94" y2="25.4" width="0.1524" layer="91"/>
+<wire x1="27.94" y1="25.4" x2="27.94" y2="27.94" width="0.1524" layer="91"/>
+<pinref part="U$6" gate="G$1" pin="V_BATT"/>
 </segment>
 </net>
 <net name="N$23" class="0">
