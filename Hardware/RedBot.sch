@@ -10048,11 +10048,6 @@ LILYPAD- DIO-09910&lt;br&gt;</description>
 <wire x1="347.98" y1="226.06" x2="358.14" y2="226.06" width="0.1524" layer="91"/>
 <label x="358.14" y="226.06" size="1.27" layer="95" xref="yes"/>
 </segment>
-<segment>
-<pinref part="R7" gate="G$1" pin="2"/>
-<wire x1="20.32" y1="243.84" x2="17.78" y2="243.84" width="0.1524" layer="91"/>
-<label x="17.78" y="243.84" size="1.27" layer="95" rot="R180" xref="yes"/>
-</segment>
 </net>
 <net name="SERVO_3" class="0">
 <segment>
@@ -10105,6 +10100,11 @@ LILYPAD- DIO-09910&lt;br&gt;</description>
 <pinref part="JP5" gate="G$1" pin="3"/>
 <wire x1="20.32" y1="205.74" x2="15.24" y2="205.74" width="0.1524" layer="91"/>
 <label x="15.24" y="205.74" size="1.27" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="R7" gate="G$1" pin="2"/>
+<wire x1="20.32" y1="243.84" x2="17.78" y2="243.84" width="0.1524" layer="91"/>
+<label x="17.78" y="243.84" size="1.27" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="N$26" class="0">
