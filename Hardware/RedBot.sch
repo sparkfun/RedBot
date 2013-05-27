@@ -1502,6 +1502,20 @@ We've spent an enormous amount of time creating and checking these footprints an
 <package name="FOUR_LAYER_WARNING">
 <text x="0" y="0" size="1.27" layer="51">THIS IS A FOUR-LAYER BOARD!</text>
 </package>
+<package name="FIDUCIAL-1.5X3">
+<circle x="0" y="0" radius="0.9055" width="1.27" layer="29"/>
+<smd name="1" x="0" y="0" dx="1.5" dy="1.5" layer="1" roundness="100" cream="no"/>
+</package>
+<package name="FIDUCIAL-1X2">
+<smd name="1" x="0" y="0" dx="1" dy="1" layer="1" roundness="100" cream="no"/>
+</package>
+<package name="FIDUCIAL-1X2.5">
+<circle x="0" y="0" radius="0.9" width="1.27" layer="29"/>
+<smd name="1" x="0" y="0" dx="1" dy="1" layer="1" roundness="100" cream="no"/>
+</package>
+<package name="MICRO-FIDUCIAL">
+<smd name="1" x="0" y="0" dx="0.635" dy="0.635" layer="1" roundness="100" cream="no"/>
+</package>
 </packages>
 <symbols>
 <symbol name="LETTER_L">
@@ -5129,6 +5143,11 @@ We've spent an enormous amount of time creating and checking these footprints an
 <symbol name="FOUR_LAYER_WARNING">
 <text x="0" y="0" size="1.778" layer="94">THIS IS A FOUR-LAYER BOARD!</text>
 </symbol>
+<symbol name="FIDUCIAL">
+<wire x1="-0.762" y1="0.762" x2="0.762" y2="-0.762" width="0.254" layer="94"/>
+<wire x1="0.762" y1="0.762" x2="-0.762" y2="-0.762" width="0.254" layer="94"/>
+<circle x="0" y="0" radius="1.27" width="0.254" layer="94"/>
+</symbol>
 </symbols>
 <devicesets>
 <deviceset name="FRAME-LETTER" prefix="FRAME">
@@ -5269,6 +5288,35 @@ four-layer PCB.</description>
 </gates>
 <devices>
 <device name="" package="FOUR_LAYER_WARNING">
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="FIDUCIAL" prefix="FID">
+<description>&lt;b&gt;Fiducial Alignment Points&lt;/b&gt;
+Various fiducial points for machine vision alignment.</description>
+<gates>
+<gate name="G$1" symbol="FIDUCIAL" x="0" y="0"/>
+</gates>
+<devices>
+<device name="1.5X3" package="FIDUCIAL-1.5X3">
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="1X2" package="FIDUCIAL-1X2">
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="1X2.5" package="FIDUCIAL-1X2.5">
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="UFIDUCIAL" package="MICRO-FIDUCIAL">
 <technologies>
 <technology name=""/>
 </technologies>
@@ -9754,6 +9802,8 @@ LILYPAD- DIO-09910&lt;br&gt;</description>
 </part>
 <part name="U$20" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
 <part name="U$21" library="SparkFun-Aesthetics" deviceset="FOUR_LAYER_WARNING" device=""/>
+<part name="FID1" library="SparkFun-Aesthetics" deviceset="FIDUCIAL" device="UFIDUCIAL"/>
+<part name="FID2" library="SparkFun-Aesthetics" deviceset="FIDUCIAL" device="UFIDUCIAL"/>
 </parts>
 <sheets>
 <sheet>
@@ -9891,6 +9941,8 @@ LILYPAD- DIO-09910&lt;br&gt;</description>
 <instance part="R13" gate="G$1" x="134.62" y="162.56" rot="R180"/>
 <instance part="U$20" gate="G$1" x="127" y="165.1"/>
 <instance part="U$21" gate="G$1" x="304.8" y="36.068"/>
+<instance part="FID1" gate="G$1" x="398.78" y="33.02"/>
+<instance part="FID2" gate="G$1" x="398.78" y="27.94"/>
 </instances>
 <busses>
 </busses>
