@@ -26,11 +26,51 @@ UsedLibrary="C:/Dropbox/SparkFun-Eagle-Libraries/SparkFun-Resistors.lbr"
 UsedLibrary="C:/Dropbox/SparkFun-Eagle-Libraries/SparkFun-Sensors.lbr"
 
 [Win_1]
+Type="Board Editor"
+Loc="-991 160 -392 559"
+State=1
+Number=2
+File="C:/Dropbox/Projects/temp/RN-52/RN-52 Breakout.brd"
+View="-13.1619 -7.35869 48.6455 48.7418"
+WireWidths=" 0 0.3048 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0.4064 0.254"
+PadDiameters=" 0.254 0.3048 0.4064 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0"
+PadDrills=" 0.508"
+ViaDiameters=" 0.254 0.3048 0.4064 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0"
+ViaDrills=" 0.508"
+HoleDrills=" 0.508"
+TextSizes=" 0.254 0.3048 0.4064 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.9304 2.1844 2.54 3.81 5.08 6.4516 1.778"
+PolygonSpacings=" 0.254 0.3048 0.4064 0.6096 0.8128 1.016 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 5.08 6.4516 1.27"
+PolygonIsolates=" 0.254 0.4064 0.6096 0.8128 1.016 1.27 1.4224 1.6764 1.778 1.9304 2.1844 2.54 3.81 6.4516 0 0.3048"
+MiterRadiuss=" 0.254 0.3175 0.635 1.27 2.54 1 2 2.5 5 7.5 10 0"
+SmdSizes=" 0.3048 0.1524 0.4064 0.2032 0.6096 0.3048 0.8128 0.4064 1.016 0.508 1.27 0.6604 1.4224 0.7112 1.6764 0.8128 1.778 0.9144 1.9304 0.9652 2.1844 1.0668 2.54 1.27 3.81 1.9304 5.08 2.54 6.4516 3.2512 1.27 0.635"
+WireBend=1
+WireBendSet=0
+WireCap=1
+MiterStyle=0
+PadShape=1
+ViaShape=1
+PolygonPour=0
+PolygonRank=1
+PolygonThermals=1
+PolygonOrphans=0
+TextRatio=15
+PinDirection=3
+PinFunction=0
+PinLength=2
+PinVisible=3
+SwapLevel=0
+ArcDirection=0
+AddLevel=2
+PadsSameType=0
+Layer=16
+
+[Win_2]
 Type="Control Panel"
-Loc="942 33 1570 800"
+Loc="-852 4 -224 771"
 State=2
 Number=0
 
 [Desktop]
-Screen="1600 900"
+Screen="3200 900"
 Window="Win_1"
+Window="Win_2"

@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.005" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="5V" color="1" fill="3" visible="yes" active="yes"/>
@@ -16,27 +16,28 @@
 <layer number="18" name="Vias" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="19" name="Unrouted" color="6" fill="1" visible="yes" active="yes"/>
 <layer number="20" name="Dimension" color="6" fill="1" visible="yes" active="yes"/>
-<layer number="21" name="tPlace" color="6" fill="1" visible="yes" active="yes"/>
-<layer number="22" name="bPlace" color="6" fill="1" visible="yes" active="yes"/>
+<layer number="21" name="tPlace" color="16" fill="1" visible="yes" active="yes"/>
+<layer number="22" name="bPlace" color="14" fill="1" visible="yes" active="yes"/>
 <layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="yes"/>
 <layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="yes"/>
-<layer number="25" name="tNames" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="26" name="bNames" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="27" name="tValues" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="28" name="bValues" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="29" name="tStop" color="7" fill="3" visible="yes" active="yes"/>
-<layer number="30" name="bStop" color="7" fill="6" visible="yes" active="yes"/>
-<layer number="31" name="tCream" color="7" fill="4" visible="yes" active="yes"/>
-<layer number="32" name="bCream" color="7" fill="5" visible="yes" active="yes"/>
-<layer number="39" name="tKeepout" color="4" fill="11" visible="yes" active="yes"/>
-<layer number="40" name="bKeepout" color="1" fill="11" visible="yes" active="yes"/>
-<layer number="41" name="tRestrict" color="4" fill="10" visible="yes" active="yes"/>
-<layer number="42" name="bRestrict" color="1" fill="10" visible="yes" active="yes"/>
-<layer number="44" name="Drills" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="25" name="tNames" color="7" fill="1" visible="no" active="yes"/>
+<layer number="26" name="bNames" color="7" fill="1" visible="no" active="yes"/>
+<layer number="27" name="tValues" color="7" fill="1" visible="no" active="yes"/>
+<layer number="28" name="bValues" color="7" fill="1" visible="no" active="yes"/>
+<layer number="29" name="tStop" color="7" fill="3" visible="no" active="yes"/>
+<layer number="30" name="bStop" color="7" fill="6" visible="no" active="yes"/>
+<layer number="31" name="tCream" color="7" fill="4" visible="no" active="yes"/>
+<layer number="32" name="bCream" color="7" fill="5" visible="no" active="yes"/>
+<layer number="39" name="tKeepout" color="4" fill="11" visible="no" active="yes"/>
+<layer number="40" name="bKeepout" color="1" fill="11" visible="no" active="yes"/>
+<layer number="41" name="tRestrict" color="4" fill="10" visible="no" active="yes"/>
+<layer number="42" name="bRestrict" color="1" fill="10" visible="no" active="yes"/>
+<layer number="43" name="vRestrict" color="2" fill="10" visible="no" active="yes"/>
+<layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
 <layer number="45" name="Holes" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="46" name="Milling" color="3" fill="1" visible="yes" active="yes"/>
+<layer number="46" name="Milling" color="3" fill="1" visible="no" active="yes"/>
 <layer number="51" name="tDocu" color="6" fill="1" visible="yes" active="yes"/>
-<layer number="52" name="bDocu" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="52" name="bDocu" color="7" fill="1" visible="no" active="yes"/>
 <layer number="3" name="Route3" color="4" fill="3" visible="no" active="no"/>
 <layer number="4" name="Route4" color="1" fill="4" visible="no" active="no"/>
 <layer number="5" name="Route5" color="4" fill="4" visible="no" active="no"/>
@@ -55,7 +56,6 @@
 <layer number="36" name="bGlue" color="7" fill="5" visible="no" active="no"/>
 <layer number="37" name="tTest" color="7" fill="1" visible="no" active="no"/>
 <layer number="38" name="bTest" color="7" fill="1" visible="no" active="no"/>
-<layer number="43" name="vRestrict" color="2" fill="10" visible="no" active="no"/>
 <layer number="47" name="Measures" color="7" fill="1" visible="no" active="no"/>
 <layer number="48" name="Document" color="7" fill="1" visible="no" active="no"/>
 <layer number="49" name="Reference" color="7" fill="1" visible="no" active="no"/>
@@ -185,7 +185,7 @@ MOTOR</text>
 <text x="66.04" y="5.08" size="1.27" layer="21" font="vector" ratio="15" align="center">BLACK</text>
 <text x="58.42" y="44.323" size="1.27" layer="21" font="vector" ratio="15" align="center">POWER</text>
 <text x="66.167" y="24.384" size="0.8128" layer="21" font="vector" ratio="15" align="center">USER LED</text>
-<text x="41.91" y="2.54" size="1.27" layer="16" font="vector" ratio="15" rot="MR0" align="center">v10</text>
+<text x="41.91" y="2.54" size="1.27" layer="16" font="vector" ratio="15" rot="MR0" align="center">v11</text>
 <text x="3.175" y="41.021" size="0.8128" layer="21" font="vector" ratio="15">5V</text>
 <text x="6.985" y="39.37" size="0.8128" layer="21" font="vector" ratio="15" align="center-left">GND</text>
 <text x="0.254" y="41.021" size="0.8128" layer="21" font="vector" ratio="15">GND</text>
@@ -1811,9 +1811,9 @@ design rules under a new name.</description>
 <element name="S4" library="SparkFun-Electromechanical" package="TACTILE_SWITCH_SMD" value="" x="25.4" y="31.75">
 <attribute name="PROD_ID" value="SWCH-08247" x="25.4" y="31.75" size="1.778" layer="27" font="vector" ratio="15" display="off"/>
 </element>
-<element name="D3" library="SparkFun-LED" package="LED-0603" value="GREEN" x="76.2" y="15.24" rot="R270">
-<attribute name="PROD_ID" value="DIO-00821" x="76.2" y="15.24" size="1.778" layer="27" font="vector" ratio="15" rot="R270" display="off"/>
-<attribute name="VALUE" value="GREEN" x="76.2" y="15.24" size="1.778" layer="27" font="vector" ratio="15" rot="R270" display="off"/>
+<element name="D3" library="SparkFun-LED" package="LED-0603" value="GREEN" x="76.2" y="15.24" rot="R90">
+<attribute name="PROD_ID" value="DIO-00821" x="76.2" y="15.24" size="1.778" layer="27" font="vector" ratio="15" rot="R90" display="off"/>
+<attribute name="VALUE" value="GREEN" x="76.2" y="15.24" size="1.778" layer="27" font="vector" ratio="15" rot="R90" display="off"/>
 </element>
 <element name="D4" library="SparkFun-LED" package="LED-0603" value="GREEN" x="62.23" y="24.13" rot="R180">
 <attribute name="PROD_ID" value="DIO-00821" x="62.23" y="24.13" size="1.778" layer="27" font="vector" ratio="15" rot="R180" display="off"/>
@@ -1831,9 +1831,9 @@ design rules under a new name.</description>
 <attribute name="PROD_ID" value="RES-07856" x="62.23" y="26.67" size="1.778" layer="27" font="vector" ratio="15" rot="R90" display="off"/>
 <attribute name="VALUE" value="1k" x="62.23" y="26.67" size="1.778" layer="27" font="vector" ratio="15" rot="R90" display="off"/>
 </element>
-<element name="D5" library="SparkFun-LED" package="LED-0603" value="GREEN" x="76.2" y="16.51" rot="R270">
-<attribute name="PROD_ID" value="DIO-00821" x="76.2" y="16.51" size="1.778" layer="27" font="vector" ratio="15" rot="R270" display="off"/>
-<attribute name="VALUE" value="GREEN" x="76.2" y="16.51" size="1.778" layer="27" font="vector" ratio="15" rot="R270" display="off"/>
+<element name="D5" library="SparkFun-LED" package="LED-0603" value="GREEN" x="76.2" y="16.51" rot="R90">
+<attribute name="PROD_ID" value="DIO-00821" x="76.2" y="16.51" size="1.778" layer="27" font="vector" ratio="15" rot="R90" display="off"/>
+<attribute name="VALUE" value="GREEN" x="76.2" y="16.51" size="1.778" layer="27" font="vector" ratio="15" rot="R90" display="off"/>
 </element>
 <element name="JP5" library="SparkFun-Connectors" package="2X3" value="AVR_SPI_PRG_6PTH" x="69.85" y="27.94" rot="R90"/>
 <element name="D6" library="SparkFun-LED" package="LED-0603" value="GREEN" x="57.15" y="45.72" rot="R90">
@@ -1919,8 +1919,6 @@ design rules under a new name.</description>
 <contactref element="JP9" pad="6"/>
 <contactref element="JP8" pad="5"/>
 <contactref element="S4" pad="1"/>
-<contactref element="D3" pad="C"/>
-<contactref element="D5" pad="C"/>
 <contactref element="JP5" pad="6"/>
 <contactref element="D6" pad="C"/>
 <contactref element="D4" pad="C"/>
@@ -2042,10 +2040,6 @@ design rules under a new name.</description>
 <wire x1="63.654" y1="15.565" x2="64.953" y2="15.565" width="0.254" layer="1"/>
 <wire x1="64.953" y1="15.565" x2="65.151" y2="15.494" width="0.254" layer="1"/>
 <via x="65.151" y="15.494" extent="1-16" drill="0.508"/>
-<wire x1="76.95" y1="16.51" x2="76.95" y2="15.24" width="0.254" layer="1"/>
-<wire x1="76.95" y1="16.51" x2="76.95" y2="17.387" width="0.254" layer="1"/>
-<wire x1="76.95" y1="17.387" x2="76.962" y2="17.78" width="0.254" layer="1"/>
-<via x="76.962" y="17.78" extent="1-16" drill="0.508"/>
 <wire x1="70.966" y1="17.515" x2="69.48" y2="17.515" width="0.254" layer="1"/>
 <wire x1="69.48" y1="17.515" x2="69.469" y2="17.526" width="0.254" layer="1"/>
 <via x="69.469" y="17.526" extent="1-16" drill="0.508"/>
@@ -2575,7 +2569,8 @@ design rules under a new name.</description>
 <contactref element="U5" pad="20"/>
 <contactref element="U5" pad="4"/>
 <contactref element="D2" pad="A"/>
-<wire x1="70.966" y1="14.265" x2="79.289" y2="14.265" width="0.254" layer="1"/>
+<wire x1="70.966" y1="14.265" x2="76.962" y2="14.265" width="0.254" layer="1"/>
+<wire x1="76.962" y1="14.265" x2="79.289" y2="14.265" width="0.254" layer="1"/>
 <wire x1="70.966" y1="14.265" x2="70.018" y2="14.265" width="0.254" layer="1"/>
 <wire x1="70.018" y1="14.265" x2="69.723" y2="13.97" width="0.254" layer="1"/>
 <wire x1="79.289" y1="14.265" x2="79.883" y2="14.859" width="0.254" layer="1"/>
@@ -2599,6 +2594,11 @@ design rules under a new name.</description>
 <wire x1="67.056" y1="13.97" x2="66.675" y2="14.351" width="0.254" layer="1"/>
 <wire x1="66.675" y1="14.351" x2="66.675" y2="17.388" width="0.254" layer="1"/>
 <wire x1="66.675" y1="17.388" x2="66.802" y2="17.515" width="0.254" layer="1"/>
+<contactref element="D3" pad="A"/>
+<contactref element="D5" pad="A"/>
+<wire x1="76.95" y1="15.24" x2="76.95" y2="14.277" width="0.254" layer="1"/>
+<wire x1="76.95" y1="14.277" x2="76.962" y2="14.265" width="0.254" layer="1"/>
+<wire x1="76.95" y1="16.51" x2="76.95" y2="15.24" width="0.254" layer="1"/>
 </signal>
 <signal name="PROGRAM_ENABLE">
 <contactref element="U3" pad="3"/>
@@ -2974,16 +2974,6 @@ design rules under a new name.</description>
 <signal name="AREF">
 <contactref element="U1" pad="20"/>
 </signal>
-<signal name="N$3">
-<contactref element="R6" pad="1"/>
-<contactref element="D5" pad="A"/>
-<wire x1="74.31" y1="16.51" x2="75.45" y2="16.51" width="0.254" layer="1"/>
-</signal>
-<signal name="N$4">
-<contactref element="R5" pad="1"/>
-<contactref element="D3" pad="A"/>
-<wire x1="74.31" y1="15.24" x2="75.45" y2="15.24" width="0.254" layer="1"/>
-</signal>
 <signal name="RXLED">
 <contactref element="R5" pad="2"/>
 <contactref element="U5" pad="22"/>
@@ -3135,7 +3125,24 @@ design rules under a new name.</description>
 <via x="30.48" y="40.64" extent="1-16" drill="0.508"/>
 <wire x1="30.48" y1="40.64" x2="30.48" y2="47.879" width="1.016" layer="2"/>
 </signal>
+<signal name="N$3">
+<contactref element="D5" pad="C"/>
+<contactref element="R6" pad="1"/>
+<wire x1="74.31" y1="16.51" x2="75.45" y2="16.51" width="0.254" layer="1"/>
+</signal>
+<signal name="N$4">
+<contactref element="R5" pad="1"/>
+<contactref element="D3" pad="C"/>
+<wire x1="74.31" y1="15.24" x2="75.45" y2="15.24" width="0.254" layer="1"/>
+</signal>
 </signals>
+<errors>
+<approved hash="5,1,f291c55cf11869d3"/>
+<approved hash="5,1,29d115b54b35e2f7"/>
+<approved hash="5,1,dc1f0b985ca41425"/>
+<approved hash="5,1,e7f503030c834dd3"/>
+<approved hash="5,1,e8560c96dd85c546"/>
+</errors>
 </board>
 </drawing>
 <compatibility>
