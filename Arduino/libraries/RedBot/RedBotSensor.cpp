@@ -79,7 +79,7 @@ boolean RedBotSensor::check()
 //  averages them, computes the standard deviation, and stores the results
 //  as _BGLevel and _BGSD.
 
-void RedBotSensor::setBGLevel()
+int RedBotSensor::setBGLevel()
 {
   // To calculate our average and standard deviation, we need three values:
   //  - a running mean value (stored in _BGLevel)
@@ -118,14 +118,15 @@ void RedBotSensor::setBGLevel()
   
   // This is a complete sham. I don't want the SD to be *too* small, so I
   //  picked a nice number for a lower bound. No surface is perfect!
-  if (_BGSD<9) _BGSD = 9;
+  if (_BGSD<25) _BGSD = 25;
   
+  return _BGLevel;
 }
 
 // setDetectLevel() works exactly the same as setBGLevel(), but with different
 //  variables. I should really abstract out the lion's share of these two
 //  functions, but I feel like they're small enough to not be worth the time.
-void RedBotSensor::setDetectLevel()
+int RedBotSensor::setDetectLevel()
 {
   // To calculate our average and standard deviation, we need three values:
   //  - a running mean value (stored in _detectLevel)
@@ -164,6 +165,8 @@ void RedBotSensor::setDetectLevel()
   
   // This is a complete sham. I don't want the SD to be *too* small, so I
   //  picked a nice number for a lower bound. No surface is perfect!
-  if (_detectSD<9) _detectSD = 9;
+  if (_detectSD<25) _detectSD = 25;
+  
+  return _detectLevel;
   
 }

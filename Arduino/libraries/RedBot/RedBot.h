@@ -38,8 +38,8 @@ class RedBotSensor
     RedBotSensor(int pin);
     int read();
     boolean check();
-    void setBGLevel();
-    void setDetectLevel();
+    int setBGLevel();
+    int setDetectLevel();
   private:
     int _pin;
     int _BGLevel;
