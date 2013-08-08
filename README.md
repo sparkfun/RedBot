@@ -1,8 +1,9 @@
 RedBot
 ======
 
-Design files and firmware files for the RedBot robotics board.
+[![RedBot Mainboard](https://dlnmh9ip6v2uc.cloudfront.net//images/products/1/1/6/2/2/11622-01a.jpg)]
 
+Design files and firmware files for the [RedBot robotics board](https://www.sparkfun.com/products/11622).
 
 Repository Contents
 -------------------
