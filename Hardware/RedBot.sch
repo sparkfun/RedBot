@@ -79,6 +79,8 @@
 <layer number="105" name="tPlate" color="7" fill="1" visible="no" active="yes"/>
 <layer number="106" name="bPlate" color="7" fill="1" visible="no" active="yes"/>
 <layer number="107" name="Crop" color="7" fill="1" visible="no" active="yes"/>
+<layer number="108" name="tplace-old" color="10" fill="1" visible="yes" active="yes"/>
+<layer number="109" name="ref-old" color="11" fill="1" visible="yes" active="yes"/>
 <layer number="116" name="Patch_BOT" color="9" fill="4" visible="no" active="yes"/>
 <layer number="121" name="_tsilk" color="7" fill="1" visible="no" active="yes"/>
 <layer number="122" name="_bsilk" color="7" fill="1" visible="no" active="yes"/>
@@ -7468,6 +7470,27 @@ will be further integrated into the Sparkfun Library for other footprints.  It c
 <text x="-0.508" y="4.064" size="0.4064" layer="25">&gt;NAME</text>
 <text x="1.778" y="4.064" size="0.4064" layer="25">&gt;VALUE</text>
 </package>
+<package name="FTDI_DEVICE_SIDE">
+<description>Package for devices meant to mate to an FTDI connector.</description>
+<pad name="P$1" x="-6.35" y="0" drill="1" shape="square"/>
+<pad name="P$2" x="-3.81" y="0" drill="1.016" diameter="1.778"/>
+<pad name="P$3" x="-1.27" y="0" drill="1.016" diameter="1.778"/>
+<pad name="P$4" x="1.27" y="0" drill="1.016" diameter="1.778"/>
+<pad name="P$5" x="3.81" y="0" drill="1.016" diameter="1.778"/>
+<pad name="P$6" x="6.35" y="0" drill="1.016" diameter="1.778"/>
+<wire x1="-7.62" y1="1.27" x2="7.62" y2="1.27" width="0.127" layer="21"/>
+<wire x1="7.62" y1="1.27" x2="7.62" y2="-1.27" width="0.127" layer="21"/>
+<wire x1="7.62" y1="-1.27" x2="-7.62" y2="-1.27" width="0.127" layer="21"/>
+<wire x1="-7.62" y1="-1.27" x2="-7.62" y2="1.27" width="0.127" layer="21"/>
+<text x="-7.874" y="-0.889" size="1.27" layer="21" font="vector" ratio="15" rot="R90">GRN</text>
+<text x="9.144" y="-0.889" size="1.27" layer="21" font="vector" ratio="15" rot="R90">BLK</text>
+<text x="-4.826" y="1.524" size="0.8128" layer="21" font="vector" ratio="15">TXO</text>
+<text x="-2.286" y="1.524" size="0.8128" layer="21" font="vector" ratio="15">RXI</text>
+<text x="0.254" y="1.524" size="0.8128" layer="21" font="vector" ratio="15">VCC</text>
+<text x="-7.366" y="1.524" size="0.8128" layer="21" font="vector" ratio="15">DTR</text>
+<text x="5.334" y="1.524" size="0.8128" layer="21" font="vector" ratio="15">GND</text>
+<text x="2.794" y="1.524" size="0.8128" layer="21" font="vector" ratio="15">CTS</text>
+</package>
 </packages>
 <symbols>
 <symbol name="POWERJACK">
@@ -7610,6 +7633,20 @@ will be further integrated into the Sparkfun Library for other footprints.  It c
 <text x="-2.54" y="5.842" size="1.778" layer="95">&gt;NAME</text>
 <pin name="1" x="7.62" y="0" visible="pad" length="middle" direction="pas" swaplevel="1" rot="R180"/>
 <pin name="2" x="7.62" y="2.54" visible="pad" length="middle" direction="pas" swaplevel="1" rot="R180"/>
+</symbol>
+<symbol name="FTDI_DEVICE">
+<pin name="DTR" x="-5.08" y="5.08" visible="pin" length="middle"/>
+<pin name="TXO" x="-5.08" y="2.54" visible="pin" length="middle"/>
+<pin name="RXI" x="-5.08" y="0" visible="pin" length="middle"/>
+<pin name="VCC" x="-5.08" y="-2.54" visible="pin" length="middle"/>
+<pin name="CTS" x="-5.08" y="-5.08" visible="pin" length="middle"/>
+<pin name="GND" x="-5.08" y="-7.62" visible="pin" length="middle"/>
+<wire x1="0" y1="7.62" x2="0" y2="-10.16" width="0.254" layer="94"/>
+<wire x1="0" y1="-10.16" x2="7.62" y2="-10.16" width="0.254" layer="94"/>
+<wire x1="7.62" y1="-10.16" x2="7.62" y2="7.62" width="0.254" layer="94"/>
+<wire x1="7.62" y1="7.62" x2="0" y2="7.62" width="0.254" layer="94"/>
+<text x="0" y="10.16" size="1.778" layer="95">&gt;NAME</text>
+<text x="0" y="7.62" size="1.778" layer="96">&gt;VALUE</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -8329,6 +8366,27 @@ Standard 2-pin 0.1" header. Use with straight break away headers (SKU : PRT-0011
 <connects>
 <connect gate="G$1" pin="1" pad="1"/>
 <connect gate="G$1" pin="2" pad="2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="FTDI_DEVICE" prefix="JP">
+<description>Connector which mates to FTDI basic or FTDI cable.</description>
+<gates>
+<gate name="G$1" symbol="FTDI_DEVICE" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="FTDI_DEVICE_SIDE">
+<connects>
+<connect gate="G$1" pin="CTS" pad="P$5"/>
+<connect gate="G$1" pin="DTR" pad="P$1"/>
+<connect gate="G$1" pin="GND" pad="P$6"/>
+<connect gate="G$1" pin="RXI" pad="P$3"/>
+<connect gate="G$1" pin="TXO" pad="P$2"/>
+<connect gate="G$1" pin="VCC" pad="P$4"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -9771,6 +9829,9 @@ LILYPAD- DIO-09910&lt;br&gt;</description>
 <part name="U$22" library="SparkFun-Aesthetics" deviceset="5V" device="" value="V_USB"/>
 <part name="S5" library="SparkFun-Electromechanical" deviceset="TAC_SWITCH" device="SMD"/>
 <part name="GND12" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
+<part name="JP17" library="SparkFun-Connectors" deviceset="FTDI_DEVICE" device=""/>
+<part name="GND13" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
+<part name="U$23" library="SparkFun-Aesthetics" deviceset="5V" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -9911,6 +9972,9 @@ LILYPAD- DIO-09910&lt;br&gt;</description>
 <instance part="U$22" gate="G$1" x="144.78" y="195.58"/>
 <instance part="S5" gate="S" x="309.88" y="93.98" rot="R90"/>
 <instance part="GND12" gate="1" x="309.88" y="83.82"/>
+<instance part="JP17" gate="G$1" x="289.56" y="233.68"/>
+<instance part="GND13" gate="1" x="281.94" y="220.98"/>
+<instance part="U$23" gate="G$1" x="281.94" y="241.3"/>
 </instances>
 <busses>
 </busses>
@@ -10447,6 +10511,12 @@ LILYPAD- DIO-09910&lt;br&gt;</description>
 <pinref part="S5" gate="S" pin="1"/>
 <wire x1="309.88" y1="86.36" x2="309.88" y2="88.9" width="0.1524" layer="91"/>
 </segment>
+<segment>
+<pinref part="JP17" gate="G$1" pin="GND"/>
+<pinref part="GND13" gate="1" pin="GND"/>
+<wire x1="284.48" y1="226.06" x2="281.94" y2="226.06" width="0.1524" layer="91"/>
+<wire x1="281.94" y1="226.06" x2="281.94" y2="223.52" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="5V" class="0">
 <segment>
@@ -10615,6 +10685,12 @@ LILYPAD- DIO-09910&lt;br&gt;</description>
 <pinref part="R13" gate="G$1" pin="2"/>
 <wire x1="129.54" y1="162.56" x2="127" y2="162.56" width="0.1524" layer="91"/>
 <junction x="127" y="162.56"/>
+</segment>
+<segment>
+<pinref part="U$23" gate="G$1" pin="5V"/>
+<wire x1="281.94" y1="241.3" x2="281.94" y2="231.14" width="0.1524" layer="91"/>
+<pinref part="JP17" gate="G$1" pin="VCC"/>
+<wire x1="281.94" y1="231.14" x2="284.48" y2="231.14" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="V_USB" class="0">
@@ -10968,6 +11044,11 @@ LILYPAD- DIO-09910&lt;br&gt;</description>
 <wire x1="254" y1="195.58" x2="236.22" y2="195.58" width="0.1524" layer="91"/>
 <label x="236.22" y="195.58" size="1.27" layer="95" rot="R180" xref="yes"/>
 </segment>
+<segment>
+<pinref part="JP17" gate="G$1" pin="TXO"/>
+<wire x1="284.48" y1="236.22" x2="276.86" y2="236.22" width="0.1524" layer="91"/>
+<label x="276.86" y="236.22" size="1.27" layer="95" rot="R180" xref="yes"/>
+</segment>
 </net>
 <net name="XBEE_RXI" class="0">
 <segment>
@@ -10979,6 +11060,11 @@ LILYPAD- DIO-09910&lt;br&gt;</description>
 <pinref part="R4" gate="G$1" pin="1"/>
 <wire x1="238.76" y1="203.2" x2="236.22" y2="203.2" width="0.1524" layer="91"/>
 <label x="236.22" y="203.2" size="1.27" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="JP17" gate="G$1" pin="RXI"/>
+<wire x1="284.48" y1="233.68" x2="276.86" y2="233.68" width="0.1524" layer="91"/>
+<label x="276.86" y="233.68" size="1.27" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="3.3V" class="0">
@@ -11103,7 +11189,7 @@ LILYPAD- DIO-09910&lt;br&gt;</description>
 <segment>
 <pinref part="MOD1" gate="G$1" pin="DIO3"/>
 <wire x1="226.06" y1="228.6" x2="231.14" y2="228.6" width="0.1524" layer="91"/>
-<label x="231.14" y="228.6" size="1.778" layer="95" xref="yes"/>
+<label x="231.14" y="228.6" size="1.27" layer="95" xref="yes"/>
 </segment>
 <segment>
 <label x="137.16" y="137.16" size="1.27" layer="95" rot="R180" xref="yes"/>

@@ -22,16 +22,17 @@ it drives forward a few inches.
 //  and A5, since those are the I2C pins for this board.
 RedBotAccel xl;
 
-// Instantiate the motor control class. This only needs to be done once
-//  and indeed SHOULD only be done once!
-RedBotMotor motor;
+// Instantiate the encoder. This includes motor control, as well. The 
+//  first parameter is the pin that the left wheel encoder is
+//  connected to, the second, the right wheel.
+RedBotEncoder motor = RedBotEncoder(10, 11);
 
 // Instantiate the sensors. Sensors can only be created for analog input
 //  pins; the Xbee software serial uses pins A0 and A1 and the
 //  accelerometer uses pins A4 and A5.
-RedBotSensor lSen = RedBotSensor(2);
-RedBotSensor cSen = RedBotSensor(3);
-RedBotSensor rSen = RedBotSensor(6);
+RedBotSensor lSen = RedBotSensor(A3);
+RedBotSensor cSen = RedBotSensor(A6);
+RedBotSensor rSen = RedBotSensor(A7);
 
 // Create a software serial connection. See the Arduino documentation
 //  for more information about this. The pins used here are the hard
@@ -44,38 +45,12 @@ void setup()
   xbee.begin(57600);
   Serial.println("Hello world!");
   xbee.println("Hello world!");
-  
-  // Enable bump detection. Once a bump occurs, xl.checkBump() can be
-  //  used to detect it. We'll use that to start moving.
-  xl.enableBump();
 }
 
 void loop()
 {  
-  // xl.read() causes the accelerometer values to be read into the
-  //  xl.x, xl.y, and xl.z variables for easy access.
-  xl.read();
-  xbee.print("X: "); xbee.println(xl.x);
-  xbee.print("Y: "); xbee.println(xl.y);
-  xbee.print("Z: "); xbee.println(xl.z);
-  
-  // sensor.read() returns the current value of the analog sensor.
-  xbee.print("L sen: "); xbee.println(lSen.read());
-  xbee.print("C sen: "); xbee.println(cSen.read());
-  xbee.print("R sen: "); xbee.println(rSen.read());
-  
-  // checkBump() looks for a tap input. Tap input events are stored,
-  //  and cleared on checkBump(). You may want to call checkBump()
-  //  before using it to make sure you only detect events that occur
-  //  AFTER it is called!
-  if (xl.checkBump())
-  {
-    motor.drive(255);   // drive a bit
-    delay(500);         // wait a bit
-    motor.brake();      // stop
-    delay(200);         // wait for stop to finish
-    xl.checkBump();
-  }
-  
-  delay(500);
+  Serial.println(motor.pivot(16, 255));
+  delay(2000);
+  Serial.println(motor.pivot(16, -255));
+  delay(2000);
 }
