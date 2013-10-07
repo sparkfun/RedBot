@@ -14,7 +14,7 @@ byte PBMask = 0;
 byte PCMask = 0;
 byte PDMask = 0;
 
-volatile byte pinFunction[10];         // Store the currently assigned fucntion
+volatile byte pinFunction[10];     // Store the currently assigned fucntion
                                        //  of the PCINT associated with each pin
                                        //  in this array. Array indices are of
                                        //  the type "PCINT_pinname".
@@ -44,6 +44,7 @@ ISR(PCINT0_vect)
     lastPC0PinState = PBTemp; 
     return;
   }
+  
   // Okay, now we know that at least one of our pins-of-interest is low. Which one
   //  has GONE low since the last time we called this function?
   
@@ -67,6 +68,7 @@ ISR(PCINT0_vect)
 
 ISR(PCINT1_vect)
 {
+
   // The first thing we want to do is determine which interrupt(s) we're 
   //  servicing, and what those interrupts are associated with. We can cheat, a
   //  bit, because we know which pins we care about: for PCINT1, it's only
@@ -121,6 +123,7 @@ ISR(PCINT1_vect)
 
 ISR(PCINT2_vect)
 {
+
   // The first thing we want to do is determine which interrupt(s) we're 
   //  servicing, and what those interrupts are associated with. We can cheat, a
   //  bit, because we know which pins we care about: for PCINT2, it's only
@@ -135,7 +138,7 @@ ISR(PCINT2_vect)
     lastPC2PinState = PDTemp;
     return;
   }
-                               
+                      
   // Okay, now we know that at least one of our pin-of-interest is low. Which one
   //  has GONE low since the last time we called this function?
   
@@ -147,7 +150,7 @@ ISR(PCINT2_vect)
   lastPC2PinState = PDTemp;
 }
 
-void pinFunctionHandler(PCINT_INDEX pinIndex)
+void pinFunctionHandler(byte pinIndex)
 {
   switch(pinFunction[pinIndex])
   {
@@ -165,7 +168,7 @@ void pinFunctionHandler(PCINT_INDEX pinIndex)
   }
 }
 
-void setPinChangeInterrupt(int pin, PIN_ROLE role)
+void setPinChangeInterrupt(int pin, byte role)
 {
   switch(pin)
   {

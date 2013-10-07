@@ -16,21 +16,33 @@
 //  class member gets created, and the PCINT service routine will handle
 //  the choosing the appropriate response to the interrupt.
 
-enum PIN_ROLE {NOT_IN_USE, WHISKER, LENCODER, RENCODER, SW_SERIAL};
+#define NOT_IN_USE    0
+#define WHISKER       1
+#define LENCODER      2
+#define RENCODER      3
+#define SW_SERIAL     4
 
-enum PCINT_INDEX {PCINT_A0, PCINT_A1, PCINT_A2, PCINT_A3, PCINT_A4, 
-                  PCINT_A5, PCINT_3, PCINT_9, PCINT_10, PCINT_11};
+#define PCINT_A0      0
+#define PCINT_A1      1
+#define PCINT_A2      2
+#define PCINT_A3      3
+#define PCINT_A4      4
+#define PCINT_A5      5
+#define PCINT_3       6
+#define PCINT_9       7
+#define PCINT_10      8
+#define PCINT_11      9
 
 enum WHEEL {LEFT, RIGHT, BOTH}; // Variable for which wheel you're interested in
                   //  when you do things in the encoder class.
 
 // These three functions need to work from within multiple classes, so we keep
 //  them separate and add them as friend functions where appropriate.
-void setPinChangeInterrupt(int pin, PIN_ROLE role); // The "role" of each pin is
+void setPinChangeInterrupt(int pin, byte role); // The "role" of each pin is
                   //  stored in an array which is accessed in the interrupt
                   //  handler to determine what should be done on a falling edge
                   //  PC interrupt.
-void pinFunctionHandler(PCINT_INDEX pinIndex); // This is the function which actually
+void pinFunctionHandler(byte pinIndex); // This is the function which actually
                   //  handles the legwork after the interrupt has identified
                   //  which pin caught the interrupt.
 void brake(void); // Globally accessible motor brake. I couldn't figure out how
@@ -73,7 +85,7 @@ class RedBotEncoder
   // We declare a couple of friends, so they can have access to the private
   //  members of this class.
   friend class RedBotMotor;  // Needs access to lDir and rDir.
-  friend void pinFunctionHandler(PCINT_INDEX pinIndex); // Called from within the
+  friend void pinFunctionHandler(byte pinIndex); // Called from within the
                              //  ISRs, this function increments the counts
                              //  by calling wheelTick().
   public:
