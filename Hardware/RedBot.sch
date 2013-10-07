@@ -79,6 +79,8 @@
 <layer number="105" name="tPlate" color="7" fill="1" visible="no" active="yes"/>
 <layer number="106" name="bPlate" color="7" fill="1" visible="no" active="yes"/>
 <layer number="107" name="Crop" color="7" fill="1" visible="no" active="yes"/>
+<layer number="108" name="tplace-old" color="10" fill="1" visible="yes" active="yes"/>
+<layer number="109" name="ref-old" color="11" fill="1" visible="yes" active="yes"/>
 <layer number="116" name="Patch_BOT" color="9" fill="4" visible="no" active="yes"/>
 <layer number="121" name="_tsilk" color="7" fill="1" visible="no" active="yes"/>
 <layer number="122" name="_bsilk" color="7" fill="1" visible="no" active="yes"/>
@@ -9769,6 +9771,8 @@ LILYPAD- DIO-09910&lt;br&gt;</description>
 <part name="FID1" library="SparkFun-Aesthetics" deviceset="FIDUCIAL" device="UFIDUCIAL"/>
 <part name="FID2" library="SparkFun-Aesthetics" deviceset="FIDUCIAL" device="UFIDUCIAL"/>
 <part name="U$22" library="SparkFun-Aesthetics" deviceset="5V" device="" value="V_USB"/>
+<part name="S5" library="SparkFun-Electromechanical" deviceset="TAC_SWITCH" device="SMD"/>
+<part name="GND12" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -9778,7 +9782,7 @@ LILYPAD- DIO-09910&lt;br&gt;</description>
 <wire x1="406.4" y1="254" x2="0" y2="254" width="0.1524" layer="94"/>
 <wire x1="0" y1="254" x2="0" y2="0" width="0.1524" layer="94"/>
 <text x="330.2" y="7.62" size="5.08" layer="94">M.Hord</text>
-<text x="395.986" y="6.35" size="3.81" layer="94">12</text>
+<text x="395.986" y="6.35" size="3.81" layer="94">13</text>
 </plain>
 <instances>
 <instance part="FRAME1" gate="G$2" x="304.8" y="0"/>
@@ -9885,9 +9889,9 @@ LILYPAD- DIO-09910&lt;br&gt;</description>
 <instance part="JP14" gate="G$1" x="40.64" y="78.74"/>
 <instance part="JP15" gate="G$1" x="76.2" y="78.74"/>
 <instance part="Q1" gate="NMOS" x="73.66" y="30.48"/>
-<instance part="Q1" gate="PMOS" x="73.66" y="48.26" smashed="yes" rot="R90">
-<attribute name="NAME" x="69.342" y="51.816" size="1.778" layer="95"/>
-<attribute name="VALUE" x="73.66" y="53.34" size="1.778" layer="96" rot="R90"/>
+<instance part="Q1" gate="PMOS" x="73.66" y="48.26" smashed="yes" rot="MR90">
+<attribute name="NAME" x="77.978" y="51.816" size="1.778" layer="95" rot="MR0"/>
+<attribute name="VALUE" x="73.66" y="53.34" size="1.778" layer="96" rot="MR90"/>
 </instance>
 <instance part="GND19" gate="1" x="73.66" y="20.32"/>
 <instance part="R11" gate="G$1" x="66.04" y="38.1" rot="R180"/>
@@ -9907,6 +9911,8 @@ LILYPAD- DIO-09910&lt;br&gt;</description>
 <instance part="FID1" gate="G$1" x="398.78" y="33.02"/>
 <instance part="FID2" gate="G$1" x="398.78" y="27.94"/>
 <instance part="U$22" gate="G$1" x="144.78" y="195.58"/>
+<instance part="S5" gate="S" x="309.88" y="93.98" rot="R90"/>
+<instance part="GND12" gate="1" x="309.88" y="83.82"/>
 </instances>
 <busses>
 </busses>
@@ -10104,6 +10110,12 @@ LILYPAD- DIO-09910&lt;br&gt;</description>
 <pinref part="JP5" gate="G$1" pin="1"/>
 <wire x1="20.32" y1="208.28" x2="15.24" y2="208.28" width="0.1524" layer="91"/>
 <label x="15.24" y="208.28" size="1.27" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="S5" gate="S" pin="3"/>
+<wire x1="309.88" y1="99.06" x2="309.88" y2="101.6" width="0.1524" layer="91"/>
+<wire x1="309.88" y1="101.6" x2="304.8" y2="101.6" width="0.1524" layer="91"/>
+<label x="304.8" y="101.6" size="1.27" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="SCK" class="0">
@@ -10431,6 +10443,11 @@ LILYPAD- DIO-09910&lt;br&gt;</description>
 <pinref part="GND21" gate="1" pin="GND"/>
 <wire x1="22.86" y1="22.86" x2="27.94" y2="22.86" width="0.1524" layer="91"/>
 <wire x1="27.94" y1="22.86" x2="27.94" y2="20.32" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="GND12" gate="1" pin="GND"/>
+<pinref part="S5" gate="S" pin="1"/>
+<wire x1="309.88" y1="86.36" x2="309.88" y2="88.9" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="5V" class="0">
@@ -10841,14 +10858,14 @@ LILYPAD- DIO-09910&lt;br&gt;</description>
 <pinref part="R11" gate="G$1" pin="2"/>
 <wire x1="60.96" y1="38.1" x2="58.42" y2="38.1" width="0.1524" layer="91"/>
 <wire x1="58.42" y1="38.1" x2="58.42" y2="48.26" width="0.1524" layer="91"/>
-<pinref part="Q1" gate="PMOS" pin="D"/>
-<wire x1="58.42" y1="48.26" x2="68.58" y2="48.26" width="0.1524" layer="91"/>
-<junction x="58.42" y="48.26"/>
 <wire x1="40.64" y1="48.26" x2="55.88" y2="48.26" width="0.1524" layer="91"/>
 <pinref part="U$18" gate="G$1" pin="V_BATT"/>
 <wire x1="55.88" y1="48.26" x2="58.42" y2="48.26" width="0.1524" layer="91"/>
 <wire x1="55.88" y1="50.8" x2="55.88" y2="48.26" width="0.1524" layer="91"/>
 <junction x="55.88" y="48.26"/>
+<pinref part="Q1" gate="PMOS" pin="S"/>
+<wire x1="68.58" y1="48.26" x2="58.42" y2="48.26" width="0.1524" layer="91"/>
+<junction x="58.42" y="48.26"/>
 </segment>
 <segment>
 <pinref part="D1" gate="G$1" pin="A"/>
@@ -11088,7 +11105,7 @@ LILYPAD- DIO-09910&lt;br&gt;</description>
 <segment>
 <pinref part="MOD1" gate="G$1" pin="DIO3"/>
 <wire x1="226.06" y1="228.6" x2="231.14" y2="228.6" width="0.1524" layer="91"/>
-<label x="231.14" y="228.6" size="1.778" layer="95" xref="yes"/>
+<label x="231.14" y="228.6" size="1.27" layer="95" xref="yes"/>
 </segment>
 <segment>
 <label x="137.16" y="137.16" size="1.27" layer="95" rot="R180" xref="yes"/>
@@ -11147,10 +11164,10 @@ LILYPAD- DIO-09910&lt;br&gt;</description>
 </net>
 <net name="V_GATED" class="0">
 <segment>
-<pinref part="Q1" gate="PMOS" pin="S"/>
-<wire x1="78.74" y1="48.26" x2="83.82" y2="48.26" width="0.1524" layer="91"/>
 <pinref part="V_GATE1" gate="G$1" pin="V_BATT"/>
 <wire x1="83.82" y1="50.8" x2="83.82" y2="48.26" width="0.1524" layer="91"/>
+<pinref part="Q1" gate="PMOS" pin="D"/>
+<wire x1="78.74" y1="48.26" x2="83.82" y2="48.26" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="V_GATE" gate="G$1" pin="V_BATT"/>
