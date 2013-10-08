@@ -1,5 +1,5 @@
 [Eagle]
-Version="06 03 00"
+Version="06 04 00"
 Platform="Windows"
 Serial="6A0C6BA654-LSR-WLM30CP"
 Globals="Globals"
@@ -27,7 +27,7 @@ UsedLibrary="C:/Dropbox/SparkFun-Eagle-Libraries/SparkFun-Sensors.lbr"
 
 [Win_1]
 Type="Control Panel"
-Loc="14 0 1034 831"
+Loc="14 3 1033 831"
 State=2
 Number=0
 
