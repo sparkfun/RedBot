@@ -74,7 +74,7 @@ void RedBotBumper::setBumpFunction(int pin, void(*functionPointer)(void))
       whiskerAction[PCINT_10] = functionPointer;
       break; 
     case 11:
-      break;
       whiskerAction[PCINT_11] = functionPointer;
+      break;
   }
 }

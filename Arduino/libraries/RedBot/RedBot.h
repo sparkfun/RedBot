@@ -49,6 +49,10 @@ void brake(void); // Globally accessible motor brake. I couldn't figure out how
                   //  to set a function pointer to the RedBotMotor class
                   //  function, and it's a small function, so I just made a
                   //  global in the library.
+void PC0Handler(byte PBTemp);
+void PC1Handler(byte PCTemp);
+void PC2Handler(byte PDTemp);
+
 
 // This class handles motor functionality. I expect one instance of this at the
 //  start of a piece of RedBot code.

@@ -10,6 +10,13 @@ volatile byte lastPC0PinState = 0x0E;  // For pins 9, 10, 11, PB1-3
 volatile byte lastPC1PinState = 0x3F;  // For pins A0-A5/14-19, PC0-5
 volatile byte lastPC2PinState = 0x08;  // For pin 3, PD3
 
+// We need some way to exclude short transients on the encoder inputs; we'll do
+//  that by capturing the most recent rise time with millis() and ignoring
+//  falling edges that happen within 20ms of a rise.
+volatile unsigned long lastRRise = 0;
+volatile unsigned long lastLRise = 0;
+#define  ENC_HIGH_DELAY   10
+
 byte PBMask = 0;
 byte PCMask = 0;
 byte PDMask = 0;
@@ -37,31 +44,45 @@ ISR(PCINT0_vect)
   //  by masking out the pins on Port B we don't care about and returning if they
   //  are all high.
   byte PBTemp = PINB & PBMask;  // Capture the state of the pins-of-interest now,
-                               //  before they have a chance to change.
-          
-  if (PBTemp == PBMask)
-  {
-    lastPC0PinState = PBTemp; 
-    return;
-  }
+                                //  before they have a chance to change.
   
-  // Okay, now we know that at least one of our pins-of-interest is low. Which one
-  //  has GONE low since the last time we called this function?
-  
+  PC0Handler(PBTemp);
+}
+
+void PC0Handler(byte PBTemp)
+{
+  // Okay, now we have to figure out what changed, and if the change was a
+  //  high-to-low or a low-to-high transition.
+        
   // Was it pin 9, AKA PB1?
-  if (lastPC0PinState ^ PBTemp  == 0x02)
+  if ((lastPC0PinState & 0x02) && !(PBTemp & 0x02))  // a falling edge
   {
     pinFunctionHandler(PCINT_9);
   }
+  else if (!(lastPC0PinState & 0x02) && (PBTemp & 0x02)) // a rising edge
+  {
+    if (pinFunction[PCINT_9] == LENCODER) lastLRise = millis();
+    if (pinFunction[PCINT_9] == RENCODER) lastRRise = millis();
+  }
   // Was it pin 10, AKA PB2?
-  if (lastPC0PinState ^ PBTemp  == 0x04)
+  if ((lastPC0PinState & 0x04) && !(PBTemp & 0x04)) // a falling edge
   {
     pinFunctionHandler(PCINT_10);
   }
+  else if (!(lastPC0PinState & 0x04) && (PBTemp & 0x04)) // a rising edge
+  {
+    if (pinFunction[PCINT_10] == LENCODER) lastLRise = millis();
+    if (pinFunction[PCINT_10] == RENCODER) lastRRise = millis();
+  }
   // Was it pin 11, AKA PB3?
-  if (lastPC0PinState ^ PBTemp  == 0x08)
+  if ((lastPC0PinState & 0x08) && !(PBTemp & 0x08)) // a falling edge
   {
     pinFunctionHandler(PCINT_11);
+  }
+  else if (!(lastPC0PinState & 0x04) && (PBTemp & 0x04)) // a rising edge
+  {
+    if (pinFunction[PCINT_11] == LENCODER) lastLRise = millis();
+    if (pinFunction[PCINT_11] == RENCODER) lastRRise = millis();
   }
   lastPC0PinState = PBTemp;
 }
@@ -79,44 +100,75 @@ ISR(PCINT1_vect)
   
   byte PCTemp = PINC & PCMask;  // Capture the state of the pins-of-interest now,
                                //  before they have a chance to change.
-  if (PCTemp == PCMask) 
-  {
-    lastPC1PinState = PCTemp;
-    return;
-  }
-                               
-  // Okay, now we know that at least one of our pins-of-interest is low. Which one
-  //  has GONE low since the last time we called this function?
+                       
+  PC1Handler(PCTemp);
+}
+
+void PC1Handler(byte PCTemp)
+{
+  // Okay, now we have to figure out what changed, and if the change was a
+  //  high-to-low or a low-to-high transition. All these if() statements check
+  //  for a high-to-low transition; we want to ignore the low-to-highs.
   
   // Was it pin A0/14, AKA PC0?
-  if (lastPC1PinState ^ PCTemp == 0x01)
+  if ((lastPC1PinState & 0x01) && !(PCTemp & 0x01))
   {
     pinFunctionHandler(PCINT_A0);
   }
+  else if (!(lastPC1PinState & 0x01) && (PCTemp & 0x01))
+  {
+    if (pinFunction[PCINT_A0] == LENCODER) lastLRise = millis();
+    if (pinFunction[PCINT_A0] == RENCODER) lastRRise = millis();
+  }
   // Was it pin A1/14, AKA PC1?
-  if (lastPC1PinState ^ PCTemp == 0x02)
+  if ((lastPC1PinState & 0x02) && !(PCTemp & 0x02))
   {
     pinFunctionHandler(PCINT_A1);
   }
+  else if (!(lastPC1PinState & 0x02) && (PCTemp & 0x02))
+  {
+    if (pinFunction[PCINT_A1] == LENCODER) lastLRise = millis();
+    if (pinFunction[PCINT_A1] == RENCODER) lastRRise = millis();
+  }
   // Was it pin A2/14, AKA PC2?
-  if (lastPC1PinState ^ PCTemp == 0x04)
+  if ((lastPC1PinState & 0x04) && !(PCTemp & 0x04))
   {
     pinFunctionHandler(PCINT_A2);
   }
+  else if (!(lastPC1PinState & 0x04) && (PCTemp & 0x04))
+  {
+    if (pinFunction[PCINT_A2] == LENCODER) lastLRise = millis();
+    if (pinFunction[PCINT_A2] == RENCODER) lastRRise = millis();
+  }
   // Was it pin A3/14, AKA PC3?
-  if (lastPC1PinState ^ PCTemp == 0x08)
+  if ((lastPC1PinState & 0x08) && !(PCTemp & 0x08))
   {
     pinFunctionHandler(PCINT_A3);
   }
+  else if (!(lastPC1PinState & 0x08) && (PCTemp & 0x08))
+  {
+    if (pinFunction[PCINT_A3] == LENCODER) lastLRise = millis();
+    if (pinFunction[PCINT_A3] == RENCODER) lastRRise = millis();
+  }
   // Was it pin A4/14, AKA PC4?
-  if (lastPC1PinState ^ PCTemp == 0x10)
+  if ((lastPC1PinState & 0x10) && !(PCTemp & 0x10))
   {
     pinFunctionHandler(PCINT_A4);
   }
+  else if (!(lastPC1PinState & 0x10) && (PCTemp & 0x10))
+  {
+    if (pinFunction[PCINT_A4] == LENCODER) lastLRise = millis();
+    if (pinFunction[PCINT_A4] == RENCODER) lastRRise = millis();
+  }
   // Was it pin A5/14, AKA PC5?
-  if (lastPC1PinState ^ PCTemp == 0x20)
+  if ((lastPC1PinState & 0x20) && !(PCTemp & 0x20))
   {
     pinFunctionHandler(PCINT_A5);
+  }
+  else if (!(lastPC1PinState & 0x20) && (PCTemp & 0x20))
+  {
+    if (pinFunction[PCINT_A5] == LENCODER) lastLRise = millis();
+    if (pinFunction[PCINT_A5] == RENCODER) lastRRise = millis();
   }
   lastPC1PinState = PCTemp;
 }
@@ -132,34 +184,41 @@ ISR(PCINT2_vect)
   
   byte PDTemp = PIND & PDMask;// Capture the state of the pin-of-interest now,
                                //  before they have a chance to change.
-                               
-  if (PDTemp == PDMask) 
-  {
-    lastPC2PinState = PDTemp;
-    return;
-  }
-                      
+  PC2Handler(PDTemp);                   
+}
+
+void PC2Handler(byte PDTemp)
+{
   // Okay, now we know that at least one of our pin-of-interest is low. Which one
   //  has GONE low since the last time we called this function?
   
   // Was it pin 3, AKA PD3?
-  if (lastPC2PinState ^ PDTemp == 0x08)
+  if ((lastPC2PinState & 0x08) && !(PDTemp & 0x08))
   {
     pinFunctionHandler(PCINT_3);
   }
+  else if (!(lastPC2PinState & 0x08) && (PDTemp & 0x08))
+  {
+    if (pinFunction[PCINT_3] == LENCODER) lastLRise = millis();
+    if (pinFunction[PCINT_3] == RENCODER) lastRRise = millis();
+  }
+    
   lastPC2PinState = PDTemp;
 }
+
 
 void pinFunctionHandler(byte pinIndex)
 {
   switch(pinFunction[pinIndex])
   {
     case LENCODER:
-      encoderObject->wheelTick(LEFT);
+      if (lastLRise + ENC_HIGH_DELAY < millis()) encoderObject->wheelTick(LEFT);
       break;
     case RENCODER:
-      encoderObject->wheelTick(RIGHT);
+      if (lastRRise + ENC_HIGH_DELAY < millis()) encoderObject->wheelTick(RIGHT);
+      break;
     case WHISKER:
+      sei();
       (*whiskerAction[pinIndex])();
       break;
     case SW_SERIAL:
