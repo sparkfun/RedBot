@@ -2,6 +2,7 @@
 #define RedBot_h
 
 #include <Arduino.h>
+#include "RedBotSoftwareSerial.h"
 
 // Pin aliases for the motor controller.
 #define    L_CTRL_1   2
@@ -178,6 +179,18 @@ class RedBotAccel
                        //  with only one command.
     void xlReadBytes(byte addr, byte *buffer, byte len); // The same as the
                        //  write command, but with reading. Same rules apply.
+};
+
+// We're going to create a special class now, to interface with the onboard
+//  XBee header. Since we've got the option of either software or hardware serial,
+//  I'm going to allow the user to choose between modes.
+
+class RedBotRadio
+{
+  public:
+    RedBotRadio();      // Constructor.
+  private:
+  
 };
 
 #endif RedBot_h

@@ -1,4 +1,5 @@
 #include "RedBot.h"
+#include "RedBotSoftwareSerial.h"
 #include <interrupt.h>
 #include <Arduino.h>
 
@@ -120,7 +121,7 @@ void PC1Handler(byte PCTemp)
     if (pinFunction[PCINT_A0] == LENCODER) lastLRise = millis();
     if (pinFunction[PCINT_A0] == RENCODER) lastRRise = millis();
   }
-  // Was it pin A1/14, AKA PC1?
+  // Was it pin A1/15, AKA PC1?
   if ((lastPC1PinState & 0x02) && !(PCTemp & 0x02))
   {
     pinFunctionHandler(PCINT_A1);
@@ -130,7 +131,7 @@ void PC1Handler(byte PCTemp)
     if (pinFunction[PCINT_A1] == LENCODER) lastLRise = millis();
     if (pinFunction[PCINT_A1] == RENCODER) lastRRise = millis();
   }
-  // Was it pin A2/14, AKA PC2?
+  // Was it pin A2/16, AKA PC2?
   if ((lastPC1PinState & 0x04) && !(PCTemp & 0x04))
   {
     pinFunctionHandler(PCINT_A2);
@@ -140,7 +141,7 @@ void PC1Handler(byte PCTemp)
     if (pinFunction[PCINT_A2] == LENCODER) lastLRise = millis();
     if (pinFunction[PCINT_A2] == RENCODER) lastRRise = millis();
   }
-  // Was it pin A3/14, AKA PC3?
+  // Was it pin A3/17, AKA PC3?
   if ((lastPC1PinState & 0x08) && !(PCTemp & 0x08))
   {
     pinFunctionHandler(PCINT_A3);
@@ -150,7 +151,7 @@ void PC1Handler(byte PCTemp)
     if (pinFunction[PCINT_A3] == LENCODER) lastLRise = millis();
     if (pinFunction[PCINT_A3] == RENCODER) lastRRise = millis();
   }
-  // Was it pin A4/14, AKA PC4?
+  // Was it pin A4/18, AKA PC4?
   if ((lastPC1PinState & 0x10) && !(PCTemp & 0x10))
   {
     pinFunctionHandler(PCINT_A4);
@@ -160,7 +161,7 @@ void PC1Handler(byte PCTemp)
     if (pinFunction[PCINT_A4] == LENCODER) lastLRise = millis();
     if (pinFunction[PCINT_A4] == RENCODER) lastRRise = millis();
   }
-  // Was it pin A5/14, AKA PC5?
+  // Was it pin A5/19, AKA PC5?
   if ((lastPC1PinState & 0x20) && !(PCTemp & 0x20))
   {
     pinFunctionHandler(PCINT_A5);
