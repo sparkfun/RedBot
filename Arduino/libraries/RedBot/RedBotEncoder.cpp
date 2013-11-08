@@ -38,6 +38,8 @@ void RedBotEncoder::wheelTick(WHEEL wheel)
     case RIGHT:
       rCounts += (long)rDir;
       break;
+    case BOTH:
+      break;
   }
 }
 
@@ -68,5 +70,8 @@ long RedBotEncoder::getTicks(WHEEL wheel)
       return lCounts;
     case RIGHT:
       return rCounts;
+    case BOTH:
+      return 0;
   }
+  return 0;
 }

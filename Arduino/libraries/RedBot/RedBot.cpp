@@ -1,6 +1,5 @@
 #include "RedBot.h"
-#include "RedBotSoftwareSerial.h"
-#include <interrupt.h>
+#include <avr/interrupt.h>
 #include <Arduino.h>
 
 // We need to track what the prior state of our pins for various PCINTS was;
@@ -30,6 +29,8 @@ volatile byte pinFunction[10];     // Store the currently assigned fucntion
 extern void (*whiskerAction[10])(void); // Declared in RedBotBumper.cpp
 
 extern RedBotEncoder *encoderObject;   // Declared in RedBotEncoder.cpp
+RedBotSoftwareSerial *RBSPObject=0;
+
                                        
 // The RedBot uses pin change interrupts for detecting wheel encoder ticks and
 //  wire bumper contacts. The sources for these are normally high, so we want to
@@ -207,7 +208,6 @@ void PC2Handler(byte PDTemp)
   lastPC2PinState = PDTemp;
 }
 
-
 void pinFunctionHandler(byte pinIndex)
 {
   switch(pinFunction[pinIndex])
@@ -223,6 +223,7 @@ void pinFunctionHandler(byte pinIndex)
       (*whiskerAction[pinIndex])();
       break;
     case SW_SERIAL:
+      RBSPObject->recv();
     case NOT_IN_USE:
     break;
   }

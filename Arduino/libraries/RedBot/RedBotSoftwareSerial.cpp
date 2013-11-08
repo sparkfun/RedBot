@@ -15,8 +15,6 @@ constructor, the user does a RedBotXBee constructor. You'll see, just wait.
 
 31 Oct 2013, Mike Hord, SparkFun Electronics
 
-
-/*
 SoftwareSerial.cpp (formerly NewSoftSerial.cpp) - 
 Multi-instance software serial library for Arduino/Wiring
 -- Interrupt-driven receive and other improvements by ladyada
@@ -47,10 +45,9 @@ The latest version of this library can always be found at
 http://arduiniana.org.
 */
 
-//#include <avr/interrupt.h>
+#include "RedBot.h"
 #include <avr/pgmspace.h>
 #include <Arduino.h>
-#include <RedBotSoftwareSerial.h>
 
 //
 // Lookup table
@@ -67,7 +64,7 @@ typedef struct _DELAY_TABLE
 // Once upon a time, there was an ifdef here; I got rid of it, because I only
 //  need the 16MHz table for the RedBot.
 
-static const DELAY_TABLE PROGMEM table[] = 
+static const DELAY_TABLE __attribute__((section(".progmem.data"))) table[] = 
 {
   //  baud    rxcenter   rxintra    rxstop    tx
   { 115200,   1,         17,        17,       12,    },
@@ -90,17 +87,18 @@ const int XMIT_START_ADJUSTMENT = 5;
 //
 // Statics
 //
-SoftwareSerial *SoftwareSerial::active_object = 0;
-char SoftwareSerial::_receive_buffer[_SS_MAX_RX_BUFF]; 
-volatile uint8_t SoftwareSerial::_receive_buffer_tail = 0;
-volatile uint8_t SoftwareSerial::_receive_buffer_head = 0;
+//RedBotSoftwareSerial *RedBotSoftwareSerial::active_object = 0;
+extern RedBotSoftwareSerial *RBSPObject;
+char RedBotSoftwareSerial::_receive_buffer[_SS_MAX_RX_BUFF]; 
+volatile uint8_t RedBotSoftwareSerial::_receive_buffer_tail = 0;
+volatile uint8_t RedBotSoftwareSerial::_receive_buffer_head = 0;
 
 //
 // Private methods
 //
 
 // static 
-inline void SoftwareSerial::tunedDelay(uint16_t delay) { 
+inline void RedBotSoftwareSerial::tunedDelay(uint16_t delay) { 
   uint8_t tmp=0;
 
   asm volatile("sbiw    %0, 0x01 \n\t"
@@ -113,28 +111,10 @@ inline void SoftwareSerial::tunedDelay(uint16_t delay) {
     );
 }
 
-// This function sets the current object as the "listening"
-// one and returns true if it replaces another 
-/*bool SoftwareSerial::listen()
-{
-  if (active_object != this)
-  {
-    _buffer_overflow = false;
-    uint8_t oldSREG = SREG;
-    cli();
-    _receive_buffer_head = _receive_buffer_tail = 0;
-    active_object = this;
-    SREG = oldSREG;
-    return true;
-  }
-
-  return false;
-}*/
-
 //
 // The receive routine called by the interrupt handler
 //
-void SoftwareSerial::recv()
+void RedBotSoftwareSerial::recv()
 {
 
 #if GCC_VERSION < 40302
@@ -155,43 +135,35 @@ void SoftwareSerial::recv()
 
   uint8_t d = 0;
 
-  // If RX line is high, then we don't see any start bit
-  //  so interrupt is probably not for us
-  if (_inverse_logic ? rx_pin_read() : !rx_pin_read())
+  // Wait approximately 1/2 of a bit width to "center" the sample
+  tunedDelay(_rx_delay_centering);
+
+  // Read each of the 8 bits
+  for (uint8_t i=0x1; i; i <<= 1)
   {
-    // Wait approximately 1/2 of a bit width to "center" the sample
-    tunedDelay(_rx_delay_centering);
-
-    // Read each of the 8 bits
-    for (uint8_t i=0x1; i; i <<= 1)
-    {
-      tunedDelay(_rx_delay_intrabit);
-      uint8_t noti = ~i;
-      if (rx_pin_read())
-        d |= i;
-      else // else clause added to ensure function timing is ~balanced
-        d &= noti;
-    }
-
-    // skip the stop bit
-    tunedDelay(_rx_delay_stopbit);
-
-    if (_inverse_logic)
-      d = ~d;
-
-    // if buffer full, set the overflow flag and return
-    if ((_receive_buffer_tail + 1) % _SS_MAX_RX_BUFF != _receive_buffer_head) 
-    {
-      // save new data in buffer: tail points to where byte goes
-      _receive_buffer[_receive_buffer_tail] = d; // save new byte
-      _receive_buffer_tail = (_receive_buffer_tail + 1) % _SS_MAX_RX_BUFF;
-    } 
-    else 
-    {
-      _buffer_overflow = true;
-    }
+    tunedDelay(_rx_delay_intrabit);
+    uint8_t noti = ~i;
+    if (rx_pin_read())
+      d |= i;
+    else // else clause added to ensure function timing is ~balanced
+      d &= noti;
   }
 
+  // skip the stop bit
+  tunedDelay(_rx_delay_stopbit);
+
+  // if buffer full, set the overflow flag and return
+  if ((_receive_buffer_tail + 1) % _SS_MAX_RX_BUFF != _receive_buffer_head) 
+  {
+    // save new data in buffer: tail points to where byte goes
+    _receive_buffer[_receive_buffer_tail] = d; // save new byte
+    _receive_buffer_tail = (_receive_buffer_tail + 1) % _SS_MAX_RX_BUFF;
+  } 
+  else 
+  {
+    _buffer_overflow = true;
+  }
+  
 #if GCC_VERSION < 40302
 // Work-around for avr-gcc 4.3.0 OSX version bug
 // Restore the registers that the compiler misses
@@ -208,7 +180,7 @@ void SoftwareSerial::recv()
 #endif
 }
 
-void SoftwareSerial::tx_pin_write(uint8_t pin_state)
+void RedBotSoftwareSerial::tx_pin_write(uint8_t pin_state)
 {
   if (pin_state == LOW)
     *_transmitPortRegister &= ~_transmitBitMask;
@@ -216,7 +188,7 @@ void SoftwareSerial::tx_pin_write(uint8_t pin_state)
     *_transmitPortRegister |= _transmitBitMask;
 }
 
-uint8_t SoftwareSerial::rx_pin_read()
+uint8_t RedBotSoftwareSerial::rx_pin_read()
 {
   return *_receivePortRegister & _receiveBitMask;
 }
@@ -232,64 +204,31 @@ uint8_t SoftwareSerial::rx_pin_read()
 //  from consideration entirely, and we know that we won't have more than one
 //  SWSP in operation, so we can remove some of the support for that, too.
 
-// static
-inline void SoftwareSerial::handle_interrupt()
-{
-  active_object->recv();
-}
-/*
-#if defined(PCINT0_vect)
-ISR(PCINT0_vect)
-{
-  SoftwareSerial::handle_interrupt();
-}
-#endif
-
-#if defined(PCINT1_vect)
-ISR(PCINT1_vect)
-{
-  SoftwareSerial::handle_interrupt();
-}
-#endif
-
-#if defined(PCINT2_vect)
-ISR(PCINT2_vect)
-{
-  SoftwareSerial::handle_interrupt();
-}
-#endif
-
-#if defined(PCINT3_vect)
-ISR(PCINT3_vect)
-{
-  SoftwareSerial::handle_interrupt();
-}
-#endif*/
-
 //
 // Constructor
 //
-SoftwareSerial::SoftwareSerial(uint8_t receivePin, uint8_t transmitPin, bool inverse_logic /* = false */) : 
+RedBotSoftwareSerial::RedBotSoftwareSerial() : 
   _rx_delay_centering(0),
   _rx_delay_intrabit(0),
   _rx_delay_stopbit(0),
   _tx_delay(0),
-  _buffer_overflow(false),
-  _inverse_logic(inverse_logic)
+  _buffer_overflow(false)
 {
-  setTX(transmitPin);
-  setRX(receivePin);
+  setPinChangeInterrupt(15, SW_SERIAL);
+  RBSPObject = this;
+  setTX(14);
+  setRX(15);
 }
 
 //
 // Destructor
 //
-SoftwareSerial::~SoftwareSerial()
+RedBotSoftwareSerial::~RedBotSoftwareSerial()
 {
   end();
 }
 
-void SoftwareSerial::setTX(uint8_t tx)
+void RedBotSoftwareSerial::setTX(uint8_t tx)
 {
   pinMode(tx, OUTPUT);
   digitalWrite(tx, HIGH);
@@ -298,11 +237,9 @@ void SoftwareSerial::setTX(uint8_t tx)
   _transmitPortRegister = portOutputRegister(port);
 }
 
-void SoftwareSerial::setRX(uint8_t rx)
+void RedBotSoftwareSerial::setRX(uint8_t rx)
 {
   pinMode(rx, INPUT);
-  if (!_inverse_logic)
-    digitalWrite(rx, HIGH);  // pullup for normal logic!
   _receivePin = rx;
   _receiveBitMask = digitalPinToBitMask(rx);
   uint8_t port = digitalPinToPort(rx);
@@ -313,7 +250,7 @@ void SoftwareSerial::setRX(uint8_t rx)
 // Public methods
 //
 
-void SoftwareSerial::begin(long speed)
+void RedBotSoftwareSerial::begin(long speed)
 {
   _rx_delay_centering = _rx_delay_intrabit = _rx_delay_stopbit = _tx_delay = 0;
 
@@ -341,10 +278,9 @@ void SoftwareSerial::begin(long speed)
     tunedDelay(_tx_delay); // if we were low this establishes the end
   }
 
-  listen();
 }
 
-void SoftwareSerial::end()
+void RedBotSoftwareSerial::end()
 {
   if (digitalPinToPCMSK(_receivePin))
     *digitalPinToPCMSK(_receivePin) &= ~_BV(digitalPinToPCMSKbit(_receivePin));
@@ -352,11 +288,8 @@ void SoftwareSerial::end()
 
 
 // Read data from buffer
-int SoftwareSerial::read()
+int RedBotSoftwareSerial::read()
 {
-  if (!isListening())
-    return -1;
-
   // Empty buffer?
   if (_receive_buffer_head == _receive_buffer_tail)
     return -1;
@@ -367,15 +300,12 @@ int SoftwareSerial::read()
   return d;
 }
 
-int SoftwareSerial::available()
+int RedBotSoftwareSerial::available()
 {
-  if (!isListening())
-    return 0;
-
   return (_receive_buffer_tail + _SS_MAX_RX_BUFF - _receive_buffer_head) % _SS_MAX_RX_BUFF;
 }
 
-size_t SoftwareSerial::write(uint8_t b)
+size_t RedBotSoftwareSerial::write(uint8_t b)
 {
   if (_tx_delay == 0) {
     setWriteError();
@@ -386,38 +316,23 @@ size_t SoftwareSerial::write(uint8_t b)
   cli();  // turn off interrupts for a clean txmit
 
   // Write the start bit
-  tx_pin_write(_inverse_logic ? HIGH : LOW);
+  tx_pin_write( LOW);
   tunedDelay(_tx_delay + XMIT_START_ADJUSTMENT);
 
   // Write each of the 8 bits
-  if (_inverse_logic)
+  
+  for (byte mask = 0x01; mask; mask <<= 1)
   {
-    for (byte mask = 0x01; mask; mask <<= 1)
-    {
-      if (b & mask) // choose bit
-        tx_pin_write(LOW); // send 1
-      else
-        tx_pin_write(HIGH); // send 0
-    
-      tunedDelay(_tx_delay);
-    }
-
-    tx_pin_write(LOW); // restore pin to natural state
+    if (b & mask) // choose bit
+      tx_pin_write(HIGH); // send 1
+    else
+      tx_pin_write(LOW); // send 0
+  
+    tunedDelay(_tx_delay);
   }
-  else
-  {
-    for (byte mask = 0x01; mask; mask <<= 1)
-    {
-      if (b & mask) // choose bit
-        tx_pin_write(HIGH); // send 1
-      else
-        tx_pin_write(LOW); // send 0
-    
-      tunedDelay(_tx_delay);
-    }
 
-    tx_pin_write(HIGH); // restore pin to natural state
-  }
+  tx_pin_write(HIGH); // restore pin to natural state
+  
 
   SREG = oldSREG; // turn interrupts back on
   tunedDelay(_tx_delay);
@@ -425,22 +340,16 @@ size_t SoftwareSerial::write(uint8_t b)
   return 1;
 }
 
-void SoftwareSerial::flush()
+void RedBotSoftwareSerial::flush()
 {
-  if (!isListening())
-    return;
-
   uint8_t oldSREG = SREG;
   cli();
   _receive_buffer_head = _receive_buffer_tail = 0;
   SREG = oldSREG;
 }
 
-int SoftwareSerial::peek()
+int RedBotSoftwareSerial::peek()
 {
-  if (!isListening())
-    return -1;
-
   // Empty buffer?
   if (_receive_buffer_head == _receive_buffer_tail)
     return -1;
@@ -455,7 +364,7 @@ Arduino IDE v1.0.5. This is provide for reference only, so anyone coming to
 the RedBot version of this code can see exactly what I changed, added, and
 removed...it's rather a lot.
 
-/*
+
 SoftwareSerial.cpp (formerly NewSoftSerial.cpp) - 
 Multi-instance software serial library for Arduino/Wiring
 -- Interrupt-driven receive and other improvements by ladyada

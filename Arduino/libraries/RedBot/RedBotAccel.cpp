@@ -179,7 +179,6 @@ void RedBotAccel::setBumpThresh(int xThresh)
 // Private function that reads some number of bytes from the accelerometer.
 void RedBotAccel::xlReadBytes(byte addr, byte *buffer, byte len)
 {
-  byte temp = 0;
   // First, we need to write the address we want to read from, so issue a write
   //  with that address. That's two steps: first, the slave address:
   TWCR = START_COND;          // Send a start condition         
