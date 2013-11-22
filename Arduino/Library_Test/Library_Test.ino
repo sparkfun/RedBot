@@ -15,6 +15,7 @@ it drives forward a few inches.
 // Include the library.
 #include <RedBot.h>
 #include <Servo.h>
+#include "notes.h"
 
 // Instantiate the motors.
 RedBotMotor motors;
@@ -33,8 +34,8 @@ RedBotSensor lSen = RedBotSensor(A6);
 RedBotSensor rSen = RedBotSensor(A7);
 
 // Instantiate a couple of whisker switches.
-RedBotBumper lBumper(10);
-RedBotBumper rBumper(11);
+RedBotBumper lBumper(10, &bump);
+RedBotBumper rBumper(11, &bump);
 
 // Instantiate a software serial port
 RedBotSoftwareSerial swsp;
@@ -51,18 +52,22 @@ Servo servo;
 // Create an alias for the onboard LED.
 #define LED_PIN 13
 
+// Constants for the levels that determine detection of the line.
+const int bgLevel = 150;
+const int lineLevel = 700;
+
+// Flag for bumpers to send the signal that something's wrong and the motors should
+//  be disabled for now. Set in the bump functions, volatile so the change is sure
+//  to propagate to the loop() function.
+volatile boolean bumped = true;
+
 void setup()
 {
   Serial.begin(57600);
   Serial.println("Hello world!");
   pinMode(BUTTON_PIN, INPUT_PULLUP);
   pinMode(LED_PIN, OUTPUT);
-  tone(BEEPER, 1000, 250);
-  delay(250);
-  tone(BEEPER, 1500, 250);
-  delay(250);
-  tone(BEEPER, 2000, 250);
-  delay(250);
+  horn();
   swsp.begin(9600);
   swsp.print("Hello, world");
   servo.attach(3);
@@ -72,13 +77,16 @@ void setup()
 void loop()
 {
   static unsigned long loopStart = millis();
-  const unsigned long loopDelay = 250;
+  const unsigned long loopDelay = 150;
   static int angle = 0;
   static int angleDelta = 5;
   
+  if (digitalRead(BUTTON_PIN) == LOW)
+  {
+    bumped = false;
+  }
   
-  
-  if (loopStart + loopDelay < millis())
+  if (loopStart + 250 < millis())
   {
     loopStart = millis();
     servo.write(angle);
@@ -86,4 +94,71 @@ void loop()
     if (angle + angleDelta < 0 ) angleDelta *= -1;
     angle += angleDelta;
   }
+  
+  // All this line-follow-y stuff should only be invoked when we're clear to move;
+  //  if one of the bump sensors was set off, we should stay still until the user
+  //  intervenes for us.
+  if (!bumped)
+  {
+    // Line following code: turn away from any sensor that is above the line
+    //  threshold.
+    // Case 1: both white. Drive forward!
+    if (lSen.read() < bgLevel && rSen.read() < bgLevel) motors.drive(100);
+    // Case 2: right sensor is on black. Must recenter.
+    if (rSen.read() > lineLevel) 
+    {
+      motors.rightDrive(-180);
+      motors.leftBrake();
+    }
+    // Case 3: left sensor is on black. Must recenter.
+    if (lSen.read() > lineLevel) 
+    {
+      motors.leftDrive(-180);
+      motors.rightBrake();
+    }
+    // Case 4: both sensors see dark
+    if (lSen.read() > lineLevel && rSen.read() >lineLevel)
+    {
+      motors.leftDrive(-180);
+      motors.rightDrive(-180);
+    }
+  }
+  else motors.brake();
+}
+
+void bump()
+{
+  motors.brake();
+  bumped = true;
+  tone(BEEPER, 150, 750);
+}
+
+const int SN = 100;
+const int EN = 200;
+void horn()
+{
+  tone(BEEPER, noteG5, SN);
+  delay(SN);
+  tone(BEEPER, noteE5, SN);
+  delay(SN);
+  tone(BEEPER, noteC5, EN);
+  delay(EN);
+  tone(BEEPER, noteC5, EN);
+  delay(EN);
+  tone(BEEPER, noteC5, SN);
+  delay(SN);
+  tone(BEEPER, noteD5, SN);
+  delay(SN);
+  tone(BEEPER, noteE5, SN);
+  delay(SN);
+  tone(BEEPER, noteF5, SN);
+  delay(SN);
+  tone(BEEPER, noteG5, EN);
+  delay(EN);
+  tone(BEEPER, noteG5, EN);
+  delay(EN);
+  tone(BEEPER, noteG5, EN);
+  delay(EN);
+  tone(BEEPER, noteE5, EN);
+  delay(EN);
 }
