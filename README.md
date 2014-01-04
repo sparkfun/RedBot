@@ -14,7 +14,7 @@ Repository Contents
 * **/Arduino/Library_Test** - Simple library demo using RedBot
 * **/Arduino/libraries/RedBot** - RedBot support library
 * **/Production Files** - Files to support SparkFun production
-
+* **/Documentation** - Documentation for the library's public API
 
 License Information
 -------------------

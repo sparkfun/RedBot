@@ -1,0 +1,286 @@
+\hypertarget{class_red_bot_motor}{\section{Red\-Bot\-Motor Class Reference}
+\label{class_red_bot_motor}\index{Red\-Bot\-Motor@{Red\-Bot\-Motor}}
+}
+
+
+{\ttfamily \#include $<$Red\-Bot.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_red_bot_motor_ae2c204ef267fe9bde43cf6caeb693eae}{Red\-Bot\-Motor} ()
+\item 
+void \hyperlink{class_red_bot_motor_a92a78cd6ecaf47cb50b1c8059375c261}{drive} (int speed)
+\item 
+void \hyperlink{class_red_bot_motor_aeef7a9abd94a74ea87860163ecad6764}{left\-Drive} (int speed)
+\item 
+void \hyperlink{class_red_bot_motor_acf1246d90ff26ec68748e16e7d80e78b}{right\-Drive} (int speed)
+\item 
+void \hyperlink{class_red_bot_motor_a61a73a2dd543697bc966bbb0de47a81d}{pivot} (int speed)
+\item 
+void \hyperlink{class_red_bot_motor_a2e55b7f88c4c081928370fe711ca61ef}{stop} ()
+\item 
+void \hyperlink{class_red_bot_motor_ac757e02db079bc5a57774b4c7bbc3737}{left\-Stop} ()
+\item 
+void \hyperlink{class_red_bot_motor_affb91e6e7205c9df1482bb58f0c0ed05}{right\-Stop} ()
+\item 
+void \hyperlink{class_red_bot_motor_a64540ac32e023eff2c93fd60f0537562}{brake} ()
+\item 
+void \hyperlink{class_red_bot_motor_a1fbd19b1b3ef733664397c183bb910ea}{left\-Brake} ()
+\item 
+void \hyperlink{class_red_bot_motor_a710584b709cd8a7a7070cbbf3d0a6ed6}{right\-Brake} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A class for controlling the Red\-Bot's motors. A single object of the \hyperlink{class_red_bot_motor}{Red\-Bot\-Motor} class controls both the left and right motors of the Red\-Bot. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_red_bot_motor_ae2c204ef267fe9bde43cf6caeb693eae}{\index{Red\-Bot\-Motor@{Red\-Bot\-Motor}!Red\-Bot\-Motor@{Red\-Bot\-Motor}}
+\index{Red\-Bot\-Motor@{Red\-Bot\-Motor}!RedBotMotor@{Red\-Bot\-Motor}}
+\subsubsection[{Red\-Bot\-Motor}]{\setlength{\rightskip}{0pt plus 5cm}Red\-Bot\-Motor\-::\-Red\-Bot\-Motor (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_red_bot_motor_ae2c204ef267fe9bde43cf6caeb693eae}
+Create a new object of the \hyperlink{class_red_bot_motor}{Red\-Bot\-Motor} class.
+
+A single \hyperlink{class_red_bot_motor}{Red\-Bot\-Motor} instance is used for both motors on the Red\-Bot. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_red_bot_motor_a64540ac32e023eff2c93fd60f0537562}{\index{Red\-Bot\-Motor@{Red\-Bot\-Motor}!brake@{brake}}
+\index{brake@{brake}!RedBotMotor@{Red\-Bot\-Motor}}
+\subsubsection[{brake}]{\setlength{\rightskip}{0pt plus 5cm}void Red\-Bot\-Motor\-::brake (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_red_bot_motor_a64540ac32e023eff2c93fd60f0537562}
+Immediately stop both motors and hold their current positions.
+
+The \hyperlink{class_red_bot_motor_a64540ac32e023eff2c93fd60f0537562}{Red\-Bot\-Motor\-::brake()} method effectively shorts the terminals of the motors and therefore results in the motors stopping much more quickly than the \hyperlink{class_red_bot_motor_a2e55b7f88c4c081928370fe711ca61ef}{Red\-Bot\-Motor\-::stop()} method. After a call to \hyperlink{class_red_bot_motor_a64540ac32e023eff2c93fd60f0537562}{Red\-Bot\-Motor\-::brake()}, the motors will be much harder to turn, which will allow the Red\-Bot to hold its position on a slope.
+
+Usage Example\-:
+
+\#include $<$\hyperlink{_red_bot_8h_source}{Red\-Bot.\-h}$>$
+
+\hyperlink{class_red_bot_motor}{Red\-Bot\-Motor} motor;
+
+void setup() \{
+
+\}
+
+void loop() \{
+
+// Drive for a bit
+
+for (int x = 0; x $<$ 1000; x++) \{
+
+motor.\-drive (200);
+
+\}
+
+// Stop the motors and hold current position
+
+motor.\-brake();
+
+\} \hypertarget{class_red_bot_motor_a92a78cd6ecaf47cb50b1c8059375c261}{\index{Red\-Bot\-Motor@{Red\-Bot\-Motor}!drive@{drive}}
+\index{drive@{drive}!RedBotMotor@{Red\-Bot\-Motor}}
+\subsubsection[{drive}]{\setlength{\rightskip}{0pt plus 5cm}void Red\-Bot\-Motor\-::drive (
+\begin{DoxyParamCaption}
+\item[{int}]{speed}
+\end{DoxyParamCaption}
+)}}\label{class_red_bot_motor_a92a78cd6ecaf47cb50b1c8059375c261}
+Run both motors at a given speed.
+
+If {\itshape speed} is a positive integer, drives both motors forward, and if {\itshape speed} is a negative integer, drives both motors backward. In either case, the motors are driven at the absolute value at {\itshape speed}. Allowable values for {\itshape speed} are -\/255 to 255 inclusive, however values in -\/75 to 0 and 0 to 75 inclusive may not provide enough torque to start the motor turning.
+
+Usage Example\-:
+
+\#include $<$\hyperlink{_red_bot_8h_source}{Red\-Bot.\-h}$>$
+
+\hyperlink{class_red_bot_motor}{Red\-Bot\-Motor} motor;
+
+void setup() \{
+
+\}
+
+void loop () \{
+
+// Drive forward at a speed of 200
+
+motor.\-drive (200);
+
+// Drive backward at a speed of 150
+
+motor.\-drive (-\/150)
+
+\} \hypertarget{class_red_bot_motor_a1fbd19b1b3ef733664397c183bb910ea}{\index{Red\-Bot\-Motor@{Red\-Bot\-Motor}!left\-Brake@{left\-Brake}}
+\index{left\-Brake@{left\-Brake}!RedBotMotor@{Red\-Bot\-Motor}}
+\subsubsection[{left\-Brake}]{\setlength{\rightskip}{0pt plus 5cm}void Red\-Bot\-Motor\-::left\-Brake (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_red_bot_motor_a1fbd19b1b3ef733664397c183bb910ea}
+Immediately stop the left motor and hold its current position.
+
+The \hyperlink{class_red_bot_motor_a1fbd19b1b3ef733664397c183bb910ea}{Red\-Bot\-Motor\-::left\-Brake()} method effectively shorts the terminals of $\ast$ the left motor and therefore results in the motor stopping much more quickly than the Red\-Bot\-Motor\-::left\-Rtop() method. After a call to \hyperlink{class_red_bot_motor_a1fbd19b1b3ef733664397c183bb910ea}{Red\-Bot\-Motor\-::left\-Brake()}, the motor will be much harder to turn, which will allow the Red\-Bot to hold its position on a slope. The right motor will still be able to be driven via \hyperlink{class_red_bot_motor_acf1246d90ff26ec68748e16e7d80e78b}{Red\-Bot\-Motor\-::right\-Drive()} method. \hypertarget{class_red_bot_motor_aeef7a9abd94a74ea87860163ecad6764}{\index{Red\-Bot\-Motor@{Red\-Bot\-Motor}!left\-Drive@{left\-Drive}}
+\index{left\-Drive@{left\-Drive}!RedBotMotor@{Red\-Bot\-Motor}}
+\subsubsection[{left\-Drive}]{\setlength{\rightskip}{0pt plus 5cm}void Red\-Bot\-Motor\-::left\-Drive (
+\begin{DoxyParamCaption}
+\item[{int}]{speed}
+\end{DoxyParamCaption}
+)}}\label{class_red_bot_motor_aeef7a9abd94a74ea87860163ecad6764}
+Run the left motor at a given speed.
+
+If {\itshape speed} is a positive integer, drives the motor forward, and if {\itshape speed} is a negative integer, drives motor backward. In either case, the motor is driven at the absolute value at {\itshape speed}. Allowable values for {\itshape speed} are -\/255 to 255 inclusive, however values in -\/75 to 0 and 0 to 75 inclusive may not provide enough torque to start the motor turning.
+
+Usage Example\-:
+
+\#include $<$\hyperlink{_red_bot_8h_source}{Red\-Bot.\-h}$>$
+
+\hyperlink{class_red_bot_motor}{Red\-Bot\-Motor} motor;
+
+void setup() \{
+
+\}
+
+void loop () \{
+
+// Drive the left motor forward at a speed of 200
+
+motor.\-Left\-Drive (200);
+
+// Drive the left motor backward at a speed of 150
+
+motor.\-left\-Drive (-\/150)
+
+\} \hypertarget{class_red_bot_motor_ac757e02db079bc5a57774b4c7bbc3737}{\index{Red\-Bot\-Motor@{Red\-Bot\-Motor}!left\-Stop@{left\-Stop}}
+\index{left\-Stop@{left\-Stop}!RedBotMotor@{Red\-Bot\-Motor}}
+\subsubsection[{left\-Stop}]{\setlength{\rightskip}{0pt plus 5cm}void Red\-Bot\-Motor\-::left\-Stop (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_red_bot_motor_ac757e02db079bc5a57774b4c7bbc3737}
+Discontinue P\-W\-M output to the left motor.
+
+This method turns off the left motor by stopping P\-W\-M output to the motor. After a call to this method, the left motor will continue to coast for a short time. In order to continue driving just the right motor, use \hyperlink{class_red_bot_motor_acf1246d90ff26ec68748e16e7d80e78b}{Red\-Bot\-Motor\-::right\-Drive(int speed)} \hypertarget{class_red_bot_motor_a61a73a2dd543697bc966bbb0de47a81d}{\index{Red\-Bot\-Motor@{Red\-Bot\-Motor}!pivot@{pivot}}
+\index{pivot@{pivot}!RedBotMotor@{Red\-Bot\-Motor}}
+\subsubsection[{pivot}]{\setlength{\rightskip}{0pt plus 5cm}void Red\-Bot\-Motor\-::pivot (
+\begin{DoxyParamCaption}
+\item[{int}]{speed}
+\end{DoxyParamCaption}
+)}}\label{class_red_bot_motor_a61a73a2dd543697bc966bbb0de47a81d}
+Pivot the Red\-Bot to either the left or right.
+
+If {\itshape speed} is a positive integer, the Red\-Bot pivots to the left. If {\itshape speed} is a negative integer, the Red\-Bot pivots to the right. In either case, the motors are driven in their respective directions at the absolute value of {\itshape speed}. When pivoting left, the left motor drives backwards and the right motor drives forward; when pivoting right, the motors drive in the opposite directions. Allowable values for {\itshape speed} are -\/255 to 255 inclusive, however values in -\/75 to 0 and 0 to 75 inclusive may not provide enough torque to start the motor turning.
+
+Usage Example\-:
+
+\#include $<$\hyperlink{_red_bot_8h_source}{Red\-Bot.\-h}$>$
+
+\hyperlink{class_red_bot_motor}{Red\-Bot\-Motor} motor;
+
+void setup() \{
+
+\}
+
+void loop() \{
+
+// Pivot to the left at a speed of 150
+
+motor.\-pivot (150);
+
+// Pivot to the right at a speed of 75
+
+motor.\-pivot (-\/75);
+
+\} \hypertarget{class_red_bot_motor_a710584b709cd8a7a7070cbbf3d0a6ed6}{\index{Red\-Bot\-Motor@{Red\-Bot\-Motor}!right\-Brake@{right\-Brake}}
+\index{right\-Brake@{right\-Brake}!RedBotMotor@{Red\-Bot\-Motor}}
+\subsubsection[{right\-Brake}]{\setlength{\rightskip}{0pt plus 5cm}void Red\-Bot\-Motor\-::right\-Brake (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_red_bot_motor_a710584b709cd8a7a7070cbbf3d0a6ed6}
+Immediately stop the right motor and hold its current position.
+
+The \hyperlink{class_red_bot_motor_a710584b709cd8a7a7070cbbf3d0a6ed6}{Red\-Bot\-Motor\-::right\-Brake()} method effectively shorts the terminals of the right motor and therefore results in the motor stopping much more quickly than the Red\-Bot\-Motor\-::right\-Rtop() method. After a call to \hyperlink{class_red_bot_motor_a710584b709cd8a7a7070cbbf3d0a6ed6}{Red\-Bot\-Motor\-::right\-Brake()}, the motor will be much harder to turn, which will allow the Red\-Bot to hold its position on a slope. The left motor will still be able to be driven via \hyperlink{class_red_bot_motor_aeef7a9abd94a74ea87860163ecad6764}{Red\-Bot\-Motor\-::left\-Drive()} method. \hypertarget{class_red_bot_motor_acf1246d90ff26ec68748e16e7d80e78b}{\index{Red\-Bot\-Motor@{Red\-Bot\-Motor}!right\-Drive@{right\-Drive}}
+\index{right\-Drive@{right\-Drive}!RedBotMotor@{Red\-Bot\-Motor}}
+\subsubsection[{right\-Drive}]{\setlength{\rightskip}{0pt plus 5cm}void Red\-Bot\-Motor\-::right\-Drive (
+\begin{DoxyParamCaption}
+\item[{int}]{speed}
+\end{DoxyParamCaption}
+)}}\label{class_red_bot_motor_acf1246d90ff26ec68748e16e7d80e78b}
+Run the right motor at a given speed.
+
+If {\itshape speed} is a positive integer, drives the motor forward, and if {\itshape speed} is a negative integer, drives motor backward. In either case, the motor is driven at the absolute value at {\itshape speed}. Allowable values for {\itshape speed} are -\/255 to 255 inclusive, however values in -\/75 to 0 and 0 to 75 inclusive may not provide enough torque to start the motor turning.
+
+Usage Example\-:
+
+\#include $<$\hyperlink{_red_bot_8h_source}{Red\-Bot.\-h}$>$
+
+\hyperlink{class_red_bot_motor}{Red\-Bot\-Motor} motor;
+
+void setup() \{
+
+\}
+
+void loop () \{
+
+// Drive the right motor forward at a speed of 200
+
+motor.\-Right\-Drive (200);
+
+// Drive the right motor backward at a speed of 150
+
+motor.\-right\-Drive (-\/150)
+
+\} \hypertarget{class_red_bot_motor_affb91e6e7205c9df1482bb58f0c0ed05}{\index{Red\-Bot\-Motor@{Red\-Bot\-Motor}!right\-Stop@{right\-Stop}}
+\index{right\-Stop@{right\-Stop}!RedBotMotor@{Red\-Bot\-Motor}}
+\subsubsection[{right\-Stop}]{\setlength{\rightskip}{0pt plus 5cm}void Red\-Bot\-Motor\-::right\-Stop (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_red_bot_motor_affb91e6e7205c9df1482bb58f0c0ed05}
+Discontinue P\-W\-M output to the right motor.
+
+This method turns off the right motor by stopping P\-W\-M output to the motor. After a call to this method, the right motor will continue to coast for a short time. In order to continue driving just the left motor, use \hyperlink{class_red_bot_motor_aeef7a9abd94a74ea87860163ecad6764}{Red\-Bot\-Motor\-::left\-Drive(int speed)} \hypertarget{class_red_bot_motor_a2e55b7f88c4c081928370fe711ca61ef}{\index{Red\-Bot\-Motor@{Red\-Bot\-Motor}!stop@{stop}}
+\index{stop@{stop}!RedBotMotor@{Red\-Bot\-Motor}}
+\subsubsection[{stop}]{\setlength{\rightskip}{0pt plus 5cm}void Red\-Bot\-Motor\-::stop (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_red_bot_motor_a2e55b7f88c4c081928370fe711ca61ef}
+Discontinue P\-W\-M output to both motors.
+
+This method turns off both motors by stopping P\-W\-M output to the motors. After a call to this method, the motors will continue to coast for a short time.
+
+Usage Example\-:
+
+\#include $<$\hyperlink{_red_bot_8h_source}{Red\-Bot.\-h}$>$
+
+\hyperlink{class_red_bot_motor}{Red\-Bot\-Motor} motor;
+
+void setup() \{
+
+\}
+
+void loop() \{
+
+// Drive for a bit
+
+for (int x = 0; x $<$ 1000; x++) \{
+
+motor.\-drive (200);
+
+\}
+
+// Stop the motors
+
+motor.\-stop();
+
+\} 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Arduino/\-Red\-Bot/Red\-Bot.\-h\item 
+Arduino/\-Red\-Bot/Red\-Bot\-Motor.\-cpp\end{DoxyCompactItemize}

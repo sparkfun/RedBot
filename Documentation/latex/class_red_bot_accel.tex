@@ -1,0 +1,107 @@
+\hypertarget{class_red_bot_accel}{\section{Red\-Bot\-Accel Class Reference}
+\label{class_red_bot_accel}\index{Red\-Bot\-Accel@{Red\-Bot\-Accel}}
+}
+
+
+{\ttfamily \#include $<$Red\-Bot.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_red_bot_accel_ad2d0de0051d6570ab9d0d4f06e7468a9}{Red\-Bot\-Accel} ()
+\item 
+void \hyperlink{class_red_bot_accel_a2b205e64828e57dcf2fb35ee81d5e731}{read} ()
+\item 
+void \hyperlink{class_red_bot_accel_a861b1e8f2cd9e35c3b2caee54d43d2d1}{enable\-Bump} ()
+\item 
+boolean \hyperlink{class_red_bot_accel_a88e803ce82865fa875e17e85f9e56801}{check\-Bump} ()
+\item 
+void \hyperlink{class_red_bot_accel_ace6875bab4125392c24c4fecc0313c32}{set\-Bump\-Thresh} (int x\-Thresh)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{class_red_bot_accel_a190369eae35db9db9d406dab70ec90ad}{x}
+\item 
+int \hyperlink{class_red_bot_accel_a1a4efe3197febc4632b8fc48237bb440}{y}
+\item 
+int \hyperlink{class_red_bot_accel_a8678bd23d5f1913950b5c97b9487a9da}{z}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A class for controlling the Red\-Bot's accelerometer.
+
+Since the Red\-Bot's accelerometer uses the I2\-C protocol, and is only connected to A4 and A5 on the Red\-Bot, there should only ever be a single object of this class instantiated in your application/sketch. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_red_bot_accel_ad2d0de0051d6570ab9d0d4f06e7468a9}{\index{Red\-Bot\-Accel@{Red\-Bot\-Accel}!Red\-Bot\-Accel@{Red\-Bot\-Accel}}
+\index{Red\-Bot\-Accel@{Red\-Bot\-Accel}!RedBotAccel@{Red\-Bot\-Accel}}
+\subsubsection[{Red\-Bot\-Accel}]{\setlength{\rightskip}{0pt plus 5cm}Red\-Bot\-Accel\-::\-Red\-Bot\-Accel (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_red_bot_accel_ad2d0de0051d6570ab9d0d4f06e7468a9}
+Creates an object of the class \hyperlink{class_red_bot_accel}{Red\-Bot\-Accel} 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_red_bot_accel_a88e803ce82865fa875e17e85f9e56801}{\index{Red\-Bot\-Accel@{Red\-Bot\-Accel}!check\-Bump@{check\-Bump}}
+\index{check\-Bump@{check\-Bump}!RedBotAccel@{Red\-Bot\-Accel}}
+\subsubsection[{check\-Bump}]{\setlength{\rightskip}{0pt plus 5cm}boolean Red\-Bot\-Accel\-::check\-Bump (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_red_bot_accel_a88e803ce82865fa875e17e85f9e56801}
+Check to see if a \char`\"{}bump\char`\"{} event has occurred.
+
+This method returns {\itshape true} if a \char`\"{}bump\char`\"{} event has occurred since the last time that \hyperlink{class_red_bot_accel_a88e803ce82865fa875e17e85f9e56801}{Red\-Bot\-Accel\-::check\-Bump()} has been called. Before using \hyperlink{class_red_bot_accel_a88e803ce82865fa875e17e85f9e56801}{Red\-Bot\-Accel\-::check\-Bump()}, bump detection must be enabled via \hyperlink{class_red_bot_accel_a861b1e8f2cd9e35c3b2caee54d43d2d1}{Red\-Bot\-Accel\-::enable\-Bump()}. Note that a \char`\"{}bump\char`\"{} is an acceleration event that occurs along the X-\/axis. \hypertarget{class_red_bot_accel_a861b1e8f2cd9e35c3b2caee54d43d2d1}{\index{Red\-Bot\-Accel@{Red\-Bot\-Accel}!enable\-Bump@{enable\-Bump}}
+\index{enable\-Bump@{enable\-Bump}!RedBotAccel@{Red\-Bot\-Accel}}
+\subsubsection[{enable\-Bump}]{\setlength{\rightskip}{0pt plus 5cm}void Red\-Bot\-Accel\-::enable\-Bump (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_red_bot_accel_a861b1e8f2cd9e35c3b2caee54d43d2d1}
+Enable bump detection.
+
+A \char`\"{}bump\char`\"{} is an acceleration event that occurs along the X-\/axis. After enabling bump detection, use to \hyperlink{class_red_bot_accel_a88e803ce82865fa875e17e85f9e56801}{Red\-Bot\-Accel\-::check\-Bump()} to do the actual detection. \hypertarget{class_red_bot_accel_a2b205e64828e57dcf2fb35ee81d5e731}{\index{Red\-Bot\-Accel@{Red\-Bot\-Accel}!read@{read}}
+\index{read@{read}!RedBotAccel@{Red\-Bot\-Accel}}
+\subsubsection[{read}]{\setlength{\rightskip}{0pt plus 5cm}void Red\-Bot\-Accel\-::read (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_red_bot_accel_a2b205e64828e57dcf2fb35ee81d5e731}
+Copy the current accelerometer values into the class's attributes.
+
+In order to \char`\"{}read\char`\"{} the accelerometer's current state, you must first call \hyperlink{class_red_bot_accel_a2b205e64828e57dcf2fb35ee81d5e731}{Red\-Bot\-Accel\-::read()} to set \hyperlink{class_red_bot_accel_a190369eae35db9db9d406dab70ec90ad}{Red\-Bot\-Accel\-::x}, \hyperlink{class_red_bot_accel_a1a4efe3197febc4632b8fc48237bb440}{Red\-Bot\-Accel\-::y}, and \hyperlink{class_red_bot_accel_a8678bd23d5f1913950b5c97b9487a9da}{Red\-Bot\-Accel\-::z} which you can then read and do your own processing. \hypertarget{class_red_bot_accel_ace6875bab4125392c24c4fecc0313c32}{\index{Red\-Bot\-Accel@{Red\-Bot\-Accel}!set\-Bump\-Thresh@{set\-Bump\-Thresh}}
+\index{set\-Bump\-Thresh@{set\-Bump\-Thresh}!RedBotAccel@{Red\-Bot\-Accel}}
+\subsubsection[{set\-Bump\-Thresh}]{\setlength{\rightskip}{0pt plus 5cm}void Red\-Bot\-Accel\-::set\-Bump\-Thresh (
+\begin{DoxyParamCaption}
+\item[{int}]{x\-Thresh}
+\end{DoxyParamCaption}
+)}}\label{class_red_bot_accel_ace6875bab4125392c24c4fecc0313c32}
+Set the threshold for what is considered a \char`\"{}bump\char`\"{} event.
+
+If the default \char`\"{}bump\char`\"{} event threshold is too strong or too weak for your application/sketch, you can provide a value of 0-\/127 inclusive to use as the new threshold. Prior to calling \hyperlink{class_red_bot_accel_ace6875bab4125392c24c4fecc0313c32}{Red\-Bot\-Accel\-::set\-Bump\-Thresh(int x\-Tresh)} \char`\"{}bump\char`\"{} detection must first be enabled via \hyperlink{class_red_bot_accel_a861b1e8f2cd9e35c3b2caee54d43d2d1}{Red\-Bot\-Accel\-::enable\-Bump()}. 
+
+\subsection{Member Data Documentation}
+\hypertarget{class_red_bot_accel_a190369eae35db9db9d406dab70ec90ad}{\index{Red\-Bot\-Accel@{Red\-Bot\-Accel}!x@{x}}
+\index{x@{x}!RedBotAccel@{Red\-Bot\-Accel}}
+\subsubsection[{x}]{\setlength{\rightskip}{0pt plus 5cm}int Red\-Bot\-Accel\-::x}}\label{class_red_bot_accel_a190369eae35db9db9d406dab70ec90ad}
+Read the last copied X-\/axis reading.
+
+This class member is set by calling \hyperlink{class_red_bot_accel_a2b205e64828e57dcf2fb35ee81d5e731}{Red\-Bot\-Accel\-::read()} and can be used to do your own data processing. \hypertarget{class_red_bot_accel_a1a4efe3197febc4632b8fc48237bb440}{\index{Red\-Bot\-Accel@{Red\-Bot\-Accel}!y@{y}}
+\index{y@{y}!RedBotAccel@{Red\-Bot\-Accel}}
+\subsubsection[{y}]{\setlength{\rightskip}{0pt plus 5cm}int Red\-Bot\-Accel\-::y}}\label{class_red_bot_accel_a1a4efe3197febc4632b8fc48237bb440}
+Read the last copied Y-\/axis reading.
+
+This class member is set by calling \hyperlink{class_red_bot_accel_a2b205e64828e57dcf2fb35ee81d5e731}{Red\-Bot\-Accel\-::read()} and can be used to do your own data processing. \hypertarget{class_red_bot_accel_a8678bd23d5f1913950b5c97b9487a9da}{\index{Red\-Bot\-Accel@{Red\-Bot\-Accel}!z@{z}}
+\index{z@{z}!RedBotAccel@{Red\-Bot\-Accel}}
+\subsubsection[{z}]{\setlength{\rightskip}{0pt plus 5cm}int Red\-Bot\-Accel\-::z}}\label{class_red_bot_accel_a8678bd23d5f1913950b5c97b9487a9da}
+Read the last copied Z-\/axis reading.
+
+This class member is set by calling \hyperlink{class_red_bot_accel_a2b205e64828e57dcf2fb35ee81d5e731}{Red\-Bot\-Accel\-::read()} and can be used to do your own data processing. 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Arduino/\-Red\-Bot/Red\-Bot.\-h\item 
+Arduino/\-Red\-Bot/Red\-Bot\-Accel.\-cpp\end{DoxyCompactItemize}
