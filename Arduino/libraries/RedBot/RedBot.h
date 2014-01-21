@@ -1,3 +1,20 @@
+/****************************************************************
+Core header file for all the various RedBot functions.
+
+There is additional license info below regarding the use of the
+SoftwareSerial library from Arduino 1.0.5; I had good and sound
+reasons for creating a derivative class rather than asking users
+to simply use the existing library, which are documented below.
+
+This code is beerware; if you use it, please buy me (or any other
+SparkFun employee) a cold beverage next time you run into one of
+us at the local.
+
+21 Jan 2014- Mike Hord, SparkFun Electronics
+
+Code developed in Arduino 1.0.5, on an SparkFun Redbot v12.
+****************************************************************/
+
 #ifndef RedBot_h
 #define RedBot_h
 
