@@ -1,0 +1,88 @@
+\hypertarget{class_red_bot_sensor}{\section{Red\-Bot\-Sensor Class Reference}
+\label{class_red_bot_sensor}\index{Red\-Bot\-Sensor@{Red\-Bot\-Sensor}}
+}
+
+
+{\ttfamily \#include $<$Red\-Bot.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_red_bot_sensor_a2ebbbab14a59c03dde759f693c59ce26}{Red\-Bot\-Sensor} (int pin)
+\item 
+int \hyperlink{class_red_bot_sensor_abd97ded86ad9de7e28ad0295a51d5c20}{read} ()
+\item 
+boolean \hyperlink{class_red_bot_sensor_a585a98bb820d20917bb71dfc004cc310}{check} ()
+\item 
+int \hyperlink{class_red_bot_sensor_aa3e2c32c59f8ac1f9866069602a16eba}{set\-B\-G\-Level} ()
+\item 
+int \hyperlink{class_red_bot_sensor_a9bbf93b3c4282562e14f605a07f47c64}{set\-Detect\-Level} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A class for controlling the Red\-Bot's sensors.
+
+A single object of the class \hyperlink{class_red_bot_sensor}{Red\-Bot\-Sensor} is needed for each sensor that you want to use on the Red\-Bot. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_red_bot_sensor_a2ebbbab14a59c03dde759f693c59ce26}{\index{Red\-Bot\-Sensor@{Red\-Bot\-Sensor}!Red\-Bot\-Sensor@{Red\-Bot\-Sensor}}
+\index{Red\-Bot\-Sensor@{Red\-Bot\-Sensor}!RedBotSensor@{Red\-Bot\-Sensor}}
+\subsubsection[{Red\-Bot\-Sensor}]{\setlength{\rightskip}{0pt plus 5cm}Red\-Bot\-Sensor\-::\-Red\-Bot\-Sensor (
+\begin{DoxyParamCaption}
+\item[{int}]{pin}
+\end{DoxyParamCaption}
+)}}\label{class_red_bot_sensor_a2ebbbab14a59c03dde759f693c59ce26}
+Create a new object of the \hyperlink{class_red_bot_sensor}{Red\-Bot\-Sensor} class.
+
+{\itshape pin} is the analog input pin that the sensor is connected to.
+
+Usage Example\-:
+
+\#include $<$\hyperlink{_red_bot_8h_source}{Red\-Bot.\-h}$>$
+
+\hyperlink{class_red_bot_sensor}{Red\-Bot\-Sensor} sensor = \hyperlink{class_red_bot_sensor}{Red\-Bot\-Sensor} (A2); 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_red_bot_sensor_a585a98bb820d20917bb71dfc004cc310}{\index{Red\-Bot\-Sensor@{Red\-Bot\-Sensor}!check@{check}}
+\index{check@{check}!RedBotSensor@{Red\-Bot\-Sensor}}
+\subsubsection[{check}]{\setlength{\rightskip}{0pt plus 5cm}boolean Red\-Bot\-Sensor\-::check (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_red_bot_sensor_a585a98bb820d20917bb71dfc004cc310}
+Determines if the current sensor reading is within the configured levels.
+
+This method returns {\itshape true} if the sensor's current analog value is within the configured levels. If the sensor's current analog value is outside the configured levels, \hyperlink{class_red_bot_sensor_a585a98bb820d20917bb71dfc004cc310}{Red\-Bot\-Sensor\-::check()} returns {\itshape false}. \hypertarget{class_red_bot_sensor_abd97ded86ad9de7e28ad0295a51d5c20}{\index{Red\-Bot\-Sensor@{Red\-Bot\-Sensor}!read@{read}}
+\index{read@{read}!RedBotSensor@{Red\-Bot\-Sensor}}
+\subsubsection[{read}]{\setlength{\rightskip}{0pt plus 5cm}int Red\-Bot\-Sensor\-::read (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_red_bot_sensor_abd97ded86ad9de7e28ad0295a51d5c20}
+Read the analog level of the sensor.
+
+This method is primarily used when you want to do your own data processing instead of relying on the library's edge detection. \hypertarget{class_red_bot_sensor_aa3e2c32c59f8ac1f9866069602a16eba}{\index{Red\-Bot\-Sensor@{Red\-Bot\-Sensor}!set\-B\-G\-Level@{set\-B\-G\-Level}}
+\index{set\-B\-G\-Level@{set\-B\-G\-Level}!RedBotSensor@{Red\-Bot\-Sensor}}
+\subsubsection[{set\-B\-G\-Level}]{\setlength{\rightskip}{0pt plus 5cm}int Red\-Bot\-Sensor\-::set\-B\-G\-Level (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_red_bot_sensor_aa3e2c32c59f8ac1f9866069602a16eba}
+Set the background/default sensor reading level.
+
+Calling this method sets the sensor's reading level that corresponds to an uninteresting sensor reading. For example, if you are trying to follow a black line on a white background, you would call Red\-Bot\-Sensor\-::set\-B\-P\-Level() when the light sensor is over the white background. \hypertarget{class_red_bot_sensor_a9bbf93b3c4282562e14f605a07f47c64}{\index{Red\-Bot\-Sensor@{Red\-Bot\-Sensor}!set\-Detect\-Level@{set\-Detect\-Level}}
+\index{set\-Detect\-Level@{set\-Detect\-Level}!RedBotSensor@{Red\-Bot\-Sensor}}
+\subsubsection[{set\-Detect\-Level}]{\setlength{\rightskip}{0pt plus 5cm}int Red\-Bot\-Sensor\-::set\-Detect\-Level (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_red_bot_sensor_a9bbf93b3c4282562e14f605a07f47c64}
+Set the forground/active sensor reading level.
+
+Calling this method sets the sensor's reading level that corresponds to an interesting sensor reading. For example, if you are trying to follow a black line on a white background, you would call \hyperlink{class_red_bot_sensor_a9bbf93b3c4282562e14f605a07f47c64}{Red\-Bot\-Sensor\-::set\-Detect\-Level()} when the light sensor is over the black background. 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+Arduino/\-Red\-Bot/Red\-Bot.\-h\item 
+Arduino/\-Red\-Bot/Red\-Bot\-Sensor.\-cpp\end{DoxyCompactItemize}
