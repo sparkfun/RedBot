@@ -9,6 +9,7 @@ Design files and firmware files for the [RedBot robotics board](https://www.spar
 Repository Contents
 -------------------
 
+* **/hardware** - Eagle PCB layout files
 * **/Arduino/Demo1** - Simple line follower using RedBot
 * **/Arduino/Library_Test** - Simple library demo using RedBot
 * **/Arduino/libraries/RedBot** - RedBot support library
