@@ -27,8 +27,8 @@ UsedLibrary="C:/Dropbox/SparkFun-Eagle-Libraries/SparkFun-Sensors.lbr"
 
 [Win_1]
 Type="Control Panel"
-Loc="8 3 1027 831"
-State=2
+Loc="0 0 763 713"
+State=1
 Number=0
 
 [Desktop]
