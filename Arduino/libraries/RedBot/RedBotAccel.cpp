@@ -190,19 +190,20 @@ void RedBotAccel::setBumpThresh(int xThresh)
 
 // Private function that reads some number of bytes from the accelerometer.
 void RedBotAccel::xlReadBytes(byte addr, byte *buffer, byte len)
-{
-  // Before we enter into this process, we need to make sure SDA is high. If
-  //  SDA is low, the processor will interpret that as another device holding
-  //  the bus, and will wait for that to change. This can cause an infinite loop
-  //  if the SDA line is low because it doesn't have a pull-up attached.
-  byte temp = PINC & 0x10;
-  if (temp != 0x10) return;
+{  
+  unsigned int timeout = 0; // We're going to use this to set a timeout on the 
+                            //  amount of time we'll wait for the bus to become
+                            //  available. The minimum period here is about 4ms
+                            //  on a 16MHz device.
   
   // First, we need to write the address we want to read from, so issue a write
   //  with that address. That's two steps: first, the slave address:
   TWCR = START_COND;          // Send a start condition         
-  while (!(TWCR&(1<<TWINT))); // When TWINT is set, start is complete, and we
+  while (!(TWCR&(1<<TWINT))) // When TWINT is set, start is complete, and we
                               //  can initiate data transfer.
+  {
+    if (++timeout == 0) return; // time out if the bus is busy. In most cases,
+  }                           //  "busy" means no sensor on the bus.
   TWDR = XL_ADDR<<1;          // Load the slave address
   TWCR = CLEAR_TWINT;         // Clear TWINT to begin transmission (I know,
                               //  it LOOKS like I'm setting it, but this is
@@ -216,15 +217,17 @@ void RedBotAccel::xlReadBytes(byte addr, byte *buffer, byte len)
   while (!(TWCR&(1<<TWINT))); // Wait for TWINT again.
   TWCR = STOP_COND;
   
-  // Again, check SDA line. It *must* be high for things to go forward.
-  temp = PINC & 0x10;
-  if (temp != 0x10) return;
+  timeout = 0;          // Reset our timeout counter before using it for the
+                        //  repeated start condition.
   
   // Now, we issue a repeated start (by doing what we just did again), and this
   //  time, we set the READ bit as well.
   TWCR = START_COND;          // Send a start condition
-  while (!(TWCR&(1<<TWINT))); // When TWINT is set, start is complete, and we
+  while (!(TWCR&(1<<TWINT)))  // When TWINT is set, start is complete, and we
                               //  can initiate data transfer.
+  {
+    if (++timeout == 0) return; // time out if the bus is busy. In most cases,
+  }                           //  "busy" means no sensor on the bus.
   TWDR = (XL_ADDR<<1) | I2C_READ;  // Load the slave address and set the read bit
   TWCR = CLEAR_TWINT;        // Clear TWINT to begin transmission (I know,
                               //  it LOOKS like I'm setting it, but this is
@@ -248,18 +251,19 @@ void RedBotAccel::xlReadBytes(byte addr, byte *buffer, byte len)
 
 void RedBotAccel::xlWriteBytes(byte addr, byte *buffer, byte len)
 {
-  // Before we enter into this process, we need to make sure SDA is high. If
-  //  SDA is low, the processor will interpret that as another device holding
-  //  the bus, and will wait for that to change. This can cause an infinite loop
-  //  if the SDA line is low because it doesn't have a pull-up attached.
-  byte temp = PINC & 0x10;
-  if (temp != 0x10) return;
-  
+  unsigned int timeout = 0; // We're going to use this to set a timeout on the 
+                            //  amount of time we'll wait for the bus to become
+                            //  available. The minimum period here is about 4ms
+                            //  on a 16MHz device.
+                            
   // First, we need to write the address we want to read from, so issue a write
   //  with that address. That's two steps: first, the slave address:
   TWCR = START_COND;          // Send a start condition         
-  while (!(TWCR&(1<<TWINT))); // When TWINT is set, start is complete, and we
+  while (!(TWCR&(1<<TWINT))) // When TWINT is set, start is complete, and we
                               //  can initiate data transfer.
+  {
+    if (++timeout == 0) return; // time out if the bus is busy. In most cases,
+  }                           //  "busy" means no sensor on the bus.
   TWDR = XL_ADDR<<1;          // Load the slave address
   TWCR = CLEAR_TWINT;         // Clear TWINT to begin transmission (I know,
                               //  it LOOKS like I'm setting it, but this is
