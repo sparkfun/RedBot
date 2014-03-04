@@ -14,7 +14,7 @@ Code developed in Arduino 1.0.5, on an SparkFun Redbot v12.
 #include <Arduino.h>
 
 RedBotAccel::RedBotAccel()
-{
+{  
   byte buffer[2];
   // This sets the bit rate of the bus; I want 100kHz. See the
   //  datasheet for details on how I came up with this value.
@@ -191,6 +191,13 @@ void RedBotAccel::setBumpThresh(int xThresh)
 // Private function that reads some number of bytes from the accelerometer.
 void RedBotAccel::xlReadBytes(byte addr, byte *buffer, byte len)
 {
+  // Before we enter into this process, we need to make sure SDA is high. If
+  //  SDA is low, the processor will interpret that as another device holding
+  //  the bus, and will wait for that to change. This can cause an infinite loop
+  //  if the SDA line is low because it doesn't have a pull-up attached.
+  byte temp = PINC & 0x10;
+  if (temp != 0x10) return;
+  
   // First, we need to write the address we want to read from, so issue a write
   //  with that address. That's two steps: first, the slave address:
   TWCR = START_COND;          // Send a start condition         
@@ -208,6 +215,10 @@ void RedBotAccel::xlReadBytes(byte addr, byte *buffer, byte len)
                               //  how we clear that bit. Dumb.)
   while (!(TWCR&(1<<TWINT))); // Wait for TWINT again.
   TWCR = STOP_COND;
+  
+  // Again, check SDA line. It *must* be high for things to go forward.
+  temp = PINC & 0x10;
+  if (temp != 0x10) return;
   
   // Now, we issue a repeated start (by doing what we just did again), and this
   //  time, we set the READ bit as well.
@@ -237,6 +248,13 @@ void RedBotAccel::xlReadBytes(byte addr, byte *buffer, byte len)
 
 void RedBotAccel::xlWriteBytes(byte addr, byte *buffer, byte len)
 {
+  // Before we enter into this process, we need to make sure SDA is high. If
+  //  SDA is low, the processor will interpret that as another device holding
+  //  the bus, and will wait for that to change. This can cause an infinite loop
+  //  if the SDA line is low because it doesn't have a pull-up attached.
+  byte temp = PINC & 0x10;
+  if (temp != 0x10) return;
+  
   // First, we need to write the address we want to read from, so issue a write
   //  with that address. That's two steps: first, the slave address:
   TWCR = START_COND;          // Send a start condition         
