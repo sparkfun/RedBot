@@ -204,21 +204,29 @@ void RedBotAccel::xlReadBytes(byte addr, byte *buffer, byte len)
   {
     if (++timeout == 0) return; // time out if the bus is busy. In most cases,
   }                           //  "busy" means no sensor on the bus.
+  timeout = 0;
   TWDR = XL_ADDR<<1;          // Load the slave address
   TWCR = CLEAR_TWINT;         // Clear TWINT to begin transmission (I know,
                               //  it LOOKS like I'm setting it, but this is
                               //  how we clear that bit. Dumb.)
   while (!(TWCR&(1<<TWINT))); // Wait for TWINT again.
+  {
+    if (++timeout == 0) return; // time out if the bus is busy. In most cases,
+  }                           //  "busy" means no sensor on the bus.
+  timeout = 0;
   // Now, we need to send the address we want to read from:
   TWDR = addr;                // Load the slave address
   TWCR = CLEAR_TWINT;        // Clear TWINT to begin transmission (I know,
                               //  it LOOKS like I'm setting it, but this is
                               //  how we clear that bit. Dumb.)
   while (!(TWCR&(1<<TWINT))); // Wait for TWINT again.
+  {
+    if (++timeout == 0) return; // time out if the bus is busy. In most cases,
+  }                           //  "busy" means no sensor on the bus.
+  timeout = 0;
   TWCR = STOP_COND;
   
-  timeout = 0;          // Reset our timeout counter before using it for the
-                        //  repeated start condition.
+  timeout = 0;
   
   // Now, we issue a repeated start (by doing what we just did again), and this
   //  time, we set the READ bit as well.
@@ -228,11 +236,16 @@ void RedBotAccel::xlReadBytes(byte addr, byte *buffer, byte len)
   {
     if (++timeout == 0) return; // time out if the bus is busy. In most cases,
   }                           //  "busy" means no sensor on the bus.
+  timeout = 0;
   TWDR = (XL_ADDR<<1) | I2C_READ;  // Load the slave address and set the read bit
   TWCR = CLEAR_TWINT;        // Clear TWINT to begin transmission (I know,
                               //  it LOOKS like I'm setting it, but this is
                               //  how we clear that bit. Dumb.)
   while (!(TWCR&(1<<TWINT))); // Wait for TWINT again.
+  {
+    if (++timeout == 0) return; // time out if the bus is busy. In most cases,
+  }                           //  "busy" means no sensor on the bus.
+  timeout = 0;
   
   // Now, we can fetch data from the slave by clearing TWINT, waiting, and
   //  reading the data. Rinse, repeat, as often as needed.
@@ -243,6 +256,10 @@ void RedBotAccel::xlReadBytes(byte addr, byte *buffer, byte len)
                                 //  how we clear that bit. Dumb.)
     else TWCR = NEXT_BYTE;
     while (!(TWCR&(1<<TWINT))); // Wait for TWINT again.
+  {
+    if (++timeout == 0) return; // time out if the bus is busy. In most cases,
+  }                           //  "busy" means no sensor on the bus.
+  timeout = 0;
     buffer[i] = TWDR;           // Now our data can be fetched from TWDR.
   }
   // Now that we're done reading our data, we can transmit a stop condition.
@@ -264,17 +281,26 @@ void RedBotAccel::xlWriteBytes(byte addr, byte *buffer, byte len)
   {
     if (++timeout == 0) return; // time out if the bus is busy. In most cases,
   }                           //  "busy" means no sensor on the bus.
+  timeout = 0;
   TWDR = XL_ADDR<<1;          // Load the slave address
   TWCR = CLEAR_TWINT;         // Clear TWINT to begin transmission (I know,
                               //  it LOOKS like I'm setting it, but this is
                               //  how we clear that bit. Dumb.)
   while (!(TWCR&(1<<TWINT))); // Wait for TWINT again.
+  {
+    if (++timeout == 0) return; // time out if the bus is busy. In most cases,
+  }                           //  "busy" means no sensor on the bus.
+  timeout = 0;
   // Now, we need to send the address we want to read from:
   TWDR = addr;                // Load the slave address
   TWCR |= CLEAR_TWINT;         // Clear TWINT to begin transmission (I know,
                               //  it LOOKS like I'm setting it, but this is
                               //  how we clear that bit. Dumb.)
   while (!(TWCR&(1<<TWINT))); // Wait for TWINT again.
+  {
+    if (++timeout == 0) return; // time out if the bus is busy. In most cases,
+  }                           //  "busy" means no sensor on the bus.
+  timeout = 0;
   
   // Now, we can send data to the slave by putting data into TWDR, clearing
   //  TWINT, and waiting for TWINT. Rinse, repeat, as often as needed.
@@ -285,6 +311,10 @@ void RedBotAccel::xlWriteBytes(byte addr, byte *buffer, byte len)
                                 //  it LOOKS like I'm setting it, but this is
                                 //  how we clear that bit. Dumb.)
     while (!(TWCR&(1<<TWINT))); // Wait for TWINT again.
+  {
+    if (++timeout == 0) return; // time out if the bus is busy. In most cases,
+  }                           //  "busy" means no sensor on the bus.
+  timeout = 0;
   }
   // Now that we're done writing our data, we can transmit a stop condition.
   TWCR = STOP_COND;
