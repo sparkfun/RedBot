@@ -209,7 +209,7 @@ void RedBotAccel::xlReadBytes(byte addr, byte *buffer, byte len)
   TWCR = CLEAR_TWINT;         // Clear TWINT to begin transmission (I know,
                               //  it LOOKS like I'm setting it, but this is
                               //  how we clear that bit. Dumb.)
-  while (!(TWCR&(1<<TWINT))); // Wait for TWINT again.
+  while (!(TWCR&(1<<TWINT)))  // Wait for TWINT again.
   {
     if (++timeout == 0) return; // time out if the bus is busy. In most cases,
   }                           //  "busy" means no sensor on the bus.
@@ -219,7 +219,7 @@ void RedBotAccel::xlReadBytes(byte addr, byte *buffer, byte len)
   TWCR = CLEAR_TWINT;        // Clear TWINT to begin transmission (I know,
                               //  it LOOKS like I'm setting it, but this is
                               //  how we clear that bit. Dumb.)
-  while (!(TWCR&(1<<TWINT))); // Wait for TWINT again.
+  while (!(TWCR&(1<<TWINT)))  // Wait for TWINT again.
   {
     if (++timeout == 0) return; // time out if the bus is busy. In most cases,
   }                           //  "busy" means no sensor on the bus.
@@ -241,7 +241,7 @@ void RedBotAccel::xlReadBytes(byte addr, byte *buffer, byte len)
   TWCR = CLEAR_TWINT;        // Clear TWINT to begin transmission (I know,
                               //  it LOOKS like I'm setting it, but this is
                               //  how we clear that bit. Dumb.)
-  while (!(TWCR&(1<<TWINT))); // Wait for TWINT again.
+  while (!(TWCR&(1<<TWINT)))  // Wait for TWINT again.
   {
     if (++timeout == 0) return; // time out if the bus is busy. In most cases,
   }                           //  "busy" means no sensor on the bus.
@@ -255,7 +255,7 @@ void RedBotAccel::xlReadBytes(byte addr, byte *buffer, byte len)
                                 //  it LOOKS like I'm setting it, but this is
                                 //  how we clear that bit. Dumb.)
     else TWCR = NEXT_BYTE;
-    while (!(TWCR&(1<<TWINT))); // Wait for TWINT again.
+    while (!(TWCR&(1<<TWINT)))  // Wait for TWINT again.
   {
     if (++timeout == 0) return; // time out if the bus is busy. In most cases,
   }                           //  "busy" means no sensor on the bus.
@@ -286,7 +286,7 @@ void RedBotAccel::xlWriteBytes(byte addr, byte *buffer, byte len)
   TWCR = CLEAR_TWINT;         // Clear TWINT to begin transmission (I know,
                               //  it LOOKS like I'm setting it, but this is
                               //  how we clear that bit. Dumb.)
-  while (!(TWCR&(1<<TWINT))); // Wait for TWINT again.
+  while (!(TWCR&(1<<TWINT)))  // Wait for TWINT again.
   {
     if (++timeout == 0) return; // time out if the bus is busy. In most cases,
   }                           //  "busy" means no sensor on the bus.
@@ -296,7 +296,7 @@ void RedBotAccel::xlWriteBytes(byte addr, byte *buffer, byte len)
   TWCR |= CLEAR_TWINT;         // Clear TWINT to begin transmission (I know,
                               //  it LOOKS like I'm setting it, but this is
                               //  how we clear that bit. Dumb.)
-  while (!(TWCR&(1<<TWINT))); // Wait for TWINT again.
+  while (!(TWCR&(1<<TWINT)))  // Wait for TWINT again.
   {
     if (++timeout == 0) return; // time out if the bus is busy. In most cases,
   }                           //  "busy" means no sensor on the bus.
@@ -310,7 +310,7 @@ void RedBotAccel::xlWriteBytes(byte addr, byte *buffer, byte len)
     TWCR |= CLEAR_TWINT;        // Clear TWINT to begin transmission (I know,
                                 //  it LOOKS like I'm setting it, but this is
                                 //  how we clear that bit. Dumb.)
-    while (!(TWCR&(1<<TWINT))); // Wait for TWINT again.
+    while (!(TWCR&(1<<TWINT)))  // Wait for TWINT again.
   {
     if (++timeout == 0) return; // time out if the bus is busy. In most cases,
   }                           //  "busy" means no sensor on the bus.
