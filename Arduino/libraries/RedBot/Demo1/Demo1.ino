@@ -2,6 +2,7 @@
 RedBot Demo1
 
 Created 30 Jul 2013 by Mike Hord @ SparkFun Electronics.
+Edited 8 Jul 2014
 
 This code is beerware- feel free to make use of it, with or without
 attribution, in your own projects. If you find it helpful, buy me a beer
@@ -13,11 +14,8 @@ It uses three of the line detection sensors to follow the line, and the
 accelerometer to start the line following behavior.
 
 ***********************************************************************/
-// Include the libraries. We make a provision for using the Xbee header
-//  via software serial to report values, but that's not really used in
-//  the code anywhere.
+// Include the libraries. 
 #include <RedBot.h>
-#include <SoftwareSerial.h>
 
 // Instantiate the motor control class. This only needs to be done once
 //  and indeed SHOULD only be done once!
@@ -35,9 +33,11 @@ RedBotSensor rSen = RedBotSensor(A6);
 RedBotAccel xl;
 
 // Create a software serial connection. See the Arduino documentation
-//  for more information about this. The pins used here are the hard
-//  wired pins the Xbee header connects to.
-SoftwareSerial xbee(15, 14);
+//  for more information about this. A "RedBotSoftwareSerial" object allows us
+//  to omit the pin description, since the pins are limited by hardware. It also
+//  makes provisions for multiplexing pin change interrupts between the
+//  SoftwareSerial pins and other functions.
+RedBotSoftwareSerial xbee;
 
 void setup()
 {
