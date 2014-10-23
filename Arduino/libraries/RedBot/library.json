@@ -1,5 +1,5 @@
 {
-  "name": "Arduino-RedBot",
+  "name": "RedBot",
   "keywords": "robot, motor, driver",
   "description": "The RedBot is a motor driver and Arduino combination with various headers and connections, eliminating the need to stack multiple shields",
   "repository":
@@ -8,5 +8,7 @@
     "url": "https://github.com/sparkfun/RedBot.git"
   },
   "src": "Arduino/libraries/RedBot",
-  "examples": "Arduino/example code/*/*.ino"
+  "examples": "Arduino/example code/*/*.ino",
+  "frameworks": "arduino",
+  "platforms": "atmelavr"
 }
