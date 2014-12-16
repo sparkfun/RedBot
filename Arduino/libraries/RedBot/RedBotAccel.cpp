@@ -79,11 +79,19 @@ void RedBotAccel::read()
   x = buffer[0]<<8 | buffer[1];
   y = buffer[2]<<8 | buffer[3];
   z = buffer[4]<<8 | buffer[5];
+  
+  // Adding these three calculations adds ~ 700us to this process.
+  // This method takes ~856 us to run w/o them in and about 1532 us with 
+  // these floating point operations. (BH)
+  angleXZ = 180*atan2(x,z)/PI;
+  angleXY = 180*atan2(x,y)/PI;
+  angleYZ = 180*atan2(y,z)/PI;
+  
 }
 
-// For bump detection, we're looking for a transient in the X direction. The
-//  bump should be pretty hard, so hopefully, we'll be able to distinguish
-//  between a bump and a tap.
+// For bump detection, we're looking for a transient in the Z direction. The
+// bump should be pretty hard, so hopefully, we'll be able to distinguish
+// between a bump and a tap.
 void RedBotAccel::enableBump()
 {
   byte buffer[8];
@@ -95,55 +103,55 @@ void RedBotAccel::enableBump()
   xlWriteBytes(0x2A, buffer, 1);
 
   // To enable tap detection, we need to write some data to registers
-  //  0x21-0x28. See Freescale app note 4072 for more info about setting
-  //  this up.
+  // 0x21-0x28. See Freescale app note 4072 for more info about setting
+  // this up.
   
   // The very first thing we'll do is enable the LPF for pulse detection.
-  //  This is in register 0x0F.
+  // This is in register 0x0F.
   buffer[0] = 0x10;
   xlWriteBytes(0x0F, buffer, 1);
   
   // Since tap detection and bump detection use the same system resources,
-  //  we need to fetch the data from the accelerometer before we can set up
-  //  tap.
+  // we need to fetch the data from the accelerometer before we can set up
+  // tap.
   xlReadBytes(0x21, buffer, 8);
   
   // Now that we have the current settings, we can turn on z-axis tap detection
-  //  by fiddling with the appropriate bits.
+  // by fiddling with the appropriate bits.
   
   // 0x21 (PULSE_CFG)- We need to set bit 6 (ELE, latch events into register)
-  //  and bit 0 (XSPEFE, x-axis single pulse event function enable)
+  // and bit 0 (XSPEFE, x-axis single pulse event function enable)
   buffer[0] = 0x41;
   
   // 0x22 (PULSE_SRC)- we'll read this to check for pulses; it's read only, so
-  //  we don't need to do anything with it here.
+  // we don't need to do anything with it here.
   buffer[1] |= 0x00; // just a placeholder
   
   // 0x23- X pulse threshold- experimentally determined to be a good value for a
-  //  threshold.
+  // threshold.
   buffer[2] = 32;
   // 0x24- Y pulse threshold
   // Both of these can be ignored, and shouldn't be touched, in case they're
-  //  configured for something else.
+  // configured for something else.
   buffer[3] |= 0x00; // placeholder
   
   // 0x25 (PULSE_THSZ)
   buffer[4] |= 0;
   
   // 0x26 (PULSE_TMLT)- maximum length a pulse must be to be detected as a tap.
-  //  The length is dependent upon three things: the sampling rate (800Hz),
-  //  whether Pulse_LPF is set or clear in register 0x0F (it's not), and the
-  //  sampling mode (Hi-res). Charts on pp34-35 of the datasheet tell us that
-  //  the maximum pulse length here is this register value times 0.625ms.
+  // The length is dependent upon three things: the sampling rate (800Hz),
+  // whether Pulse_LPF is set or clear in register 0x0F (it's not), and the
+  // sampling mode (Hi-res). Charts on pp34-35 of the datasheet tell us that
+  // the maximum pulse length here is this register value times 0.625ms.
   buffer[5] = 25;  // maximum pulse length of 62.5ms
   
   // 0x27 (PULSE_LTCY)- lockout time after a pulse occurs before another one
-  //  will be sensed. Charts for value are on page 35 of the datasheet.
+  // will be sensed. Charts for value are on page 35 of the datasheet.
   buffer[6] = 50; // 125ms lockout period
   
   // 0x28 (PULSE_WIND)- window within which a second tap must occur to register
-  //  a double tap event. We aren't worried about double taps (yet), so let's
-  //  leave this unchanged.
+  // a double tap event. We aren't worried about double taps (yet), so let's
+  // leave this unchanged.
   buffer[7] |= 0x00;  // placeholder
   
   // Write the values we just set up back into the accelerometer.

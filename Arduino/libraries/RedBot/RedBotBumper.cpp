@@ -5,7 +5,7 @@ This code is beerware; if you use it, please buy me (or any other
 SparkFun employee) a cold beverage next time you run into one of
 us at the local.
 
-21 Jan 2014- Mike Hord, SparkFun Electronics
+21 Jan 2014- Mike Hord, SparkFun Electronicsrea
 
 Code developed in Arduino 1.0.5, on an SparkFun Redbot v12.
 ****************************************************************/
@@ -23,10 +23,11 @@ void (*whiskerAction[10])(void); // Pointer to an array of functions
 //  class; I worked around it by making a globally available one.
 RedBotBumper::RedBotBumper(int pin)
 {
-  setPinChangeInterrupt(pin, WHISKER);
+//  setPinChangeInterrupt(pin, WHISKER);
   pinMode(pin, INPUT_PULLUP);
-  setBumpFunction(pin, &brake);
-}
+  //setBumpFunction(pin, &brake);
+  _pin = pin;  // set local variable for the pin
+  }
 
 // Bonus points constructor, which allows the user to connect a custom function
 //  to a bumper.
@@ -35,8 +36,13 @@ RedBotBumper::RedBotBumper(int pin, void(*functionPointer)(void))
   setPinChangeInterrupt(pin, WHISKER);
   pinMode(pin, INPUT_PULLUP);
   setBumpFunction(pin, functionPointer);
+  _pin = pin;  // set local variable for the pin
 }
 
+boolean RedBotBumper::read()
+{
+  return(digitalRead(_pin));
+}
 // Non-class function that puts the brakes on. This is the default behavior if
 //  the user doesn't specify a custom function for the bumper trigger.
 void brake(void)

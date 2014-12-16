@@ -27,8 +27,8 @@ RedBotEncoder::RedBotEncoder(int lPin, int rPin)
   //  for this; in fact, we'll need two, but I'll abstract it to a function.
   //  A call to setPinChangeInterrupt() enables pin change interrupts for that
   //  pin, and pin change interrupts for the group that pin is a part of.
-  pinMode(lPin, INPUT);
-  pinMode(rPin, INPUT);
+  pinMode(lPin, INPUT_PULLUP);
+  pinMode(rPin, INPUT_PULLUP);
   setPinChangeInterrupt(lPin, LENCODER);
   setPinChangeInterrupt(rPin, RENCODER);
   lCounts = 0;
@@ -36,6 +36,8 @@ RedBotEncoder::RedBotEncoder(int lPin, int rPin)
   encoderObject = this; // We want a local pointer to the class member that is
                         //  instantiated in the sketch, so we can manipulate its
                         //  private members with other classes.
+  lDir = 1;		// default direction to forward -- used for encoder counting
+  rDir = 1;		// default direction to forward -- used for encoder counting
 }
 
 // This private function changes the counter when a tick happens. The direction
@@ -45,10 +47,10 @@ void RedBotEncoder::wheelTick(WHEEL wheel)
   switch(wheel)
   {
     case LEFT:
-      lCounts += (long)lDir;
+      lCounts+= (long)lDir;
       break;
     case RIGHT:
-      rCounts += (long)rDir;
+      rCounts+= (long)rDir;
       break;
     case BOTH:
       break;

@@ -63,7 +63,7 @@ void pinFunctionHandler(byte pinIndex); // This is the function which actually
                   //  handles the legwork after the interrupt has identified
                   //  which pin caught the interrupt.
 void brake(void); // Globally accessible motor brake. I couldn't figure out how
-                  //  to set a function pointer to the RedBotMotor class
+                  //  to set a function pointer to the RedBotMotors class
                   //  function, and it's a small function, so I just made a
                   //  global in the library.
 void PC0Handler(byte PBTemp);
@@ -73,21 +73,35 @@ void PC2Handler(byte PDTemp);
 
 // This class handles motor functionality. I expect one instance of this at the
 //  start of a piece of RedBot code.
-class RedBotMotor
+class RedBotMotors
 {
   public:
-    RedBotMotor();          // Constructor. Mainly sets up pins.
+    RedBotMotors();          // Constructor. Mainly sets up pins.
     void drive(int speed);  // Drive in direction given by sign, at speed given
                             //  by magnitude of the parameter.
+    void drive(int speed, int duration);  // drive(), but with a delay(duration)
     void pivot(int speed);  // Pivot more or less in place. Turns motors in
-                            //  opposite directions. Positive values correspond
-                            //  to anti-clockwise rotation.
-    void rightDrive(int speed); // Drive just the left motor, as drive().
-    void leftDrive(int speed);  // Drive just the right motor, as drive().
+    void pivot(int speed, int duration);  // pivot() with a delay(duration)
+
+    void rightMotor(int speed); // Drive just the right motor. speed > 0 CW, speed < 0 CCW.
+	void leftMotor(int speed);  // Drive just the left motor. speed > 0 CW, speed < 0 CCW.
+
+    void rightMotor(int speed, int duration); // Drive just the right motor. speed > 0 CW, speed < 0 CCW. delay(duration)
+	void leftMotor(int speed, int duration);  // Drive just the left motor. speed > 0 CW, speed < 0 CCW. delay(duration)
+
+    void rightDrive(int speed); // Drive just the right motor. speed > 0 CW, speed < 0 CCW.
+	void leftDrive(int speed);  // Drive just the left motor. speed > 0 CCW, speed < 0 CW.
+
     void stop();            // Stop motors, but allow them to coast to a halt.
+    void coast();            // Stop motors, but allow them to coast to a halt.
     void brake();           // Quick-stop the motors, shorting the leads.
+
     void rightStop();       // Stop right motor, as with stop().
     void leftStop();        // Stop left motor, as with stop().
+
+    void rightCoast();       // Stop right motor, as with stop().
+    void leftCoast();        // Stop left motor, as with stop().
+
     void leftBrake();       // Quick-stop left motor, as with brake().
     void rightBrake();      // Quick-stop right motor, as with brake().
   private:
@@ -105,7 +119,7 @@ class RedBotEncoder
 {
   // We declare a couple of friends, so they can have access to the private
   //  members of this class.
-  friend class RedBotMotor;  // Needs access to lDir and rDir.
+  friend class RedBotMotors;  // Needs access to lDir and rDir.
   friend void pinFunctionHandler(byte pinIndex); // Called from within the
                              //  ISRs, this function increments the counts
                              //  by calling wheelTick().
@@ -125,6 +139,15 @@ class RedBotEncoder
     char lDir;               // Direction is set by the motor class, according
     char rDir;               //  to what the most recent motion direction for
                              //  the given wheel was.
+};
+
+// This is a simple class to handle the button object on the robot. It has only one
+// method, read(). This returns a boolean value for whether the button is pressed.
+class RedBotButton
+{
+  public:
+    RedBotButton();          // Constructor. Mainly sets up pins.
+    boolean read();  // Drive in direction given by sign, at speed given
 };
 
 // This is the reflectance sensor used for eg line following and table edge
@@ -156,7 +179,9 @@ class RedBotBumper
                            //  to do something other than stop on a whisker,
                            //  bump, they can write a function to do so, and
                            //  use this constructor.
+	boolean read();
   private:
+    int _pin;
     void setBumpFunction(int pin, void(*functionPointer)(void));
 };
 
@@ -186,6 +211,10 @@ class RedBotAccel
     int x;             // Rather than forcing users to grok pointers to read
     int y;             //  the three axes, we just populate this variables and
     int z;             //  let them be read as normal variables.
+	float angleXZ;
+	float angleXY;
+	float angleYZ;
+  
   private:
     void xlWriteBytes(byte addr, byte *buffer, byte len); // addr is the 
                        //  memory location on the device to be written to; buffer

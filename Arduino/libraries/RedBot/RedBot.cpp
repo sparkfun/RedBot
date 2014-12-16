@@ -8,7 +8,6 @@ SparkFun employee) a cold beverage next time you run into one of
 us at the local.
 
 21 Jan 2014- Mike Hord, SparkFun Electronics
-
 Code developed in Arduino 1.0.5, on an SparkFun Redbot v12.
 ****************************************************************/
 
@@ -25,21 +24,23 @@ volatile byte lastPC1PinState = 0x3F;  // For pins A0-A5/14-19, PC0-5
 volatile byte lastPC2PinState = 0x08;  // For pin 3, PD3
 
 // We need some way to exclude short transients on the encoder inputs; we'll do
-//  that by capturing the most recent rise time with millis() and ignoring
-//  falling edges that happen within 20ms of a rise.
+//  that by capturing the most recent rise time with micros() and ignoring
+//  falling edges that happen within 20us of a rise.
 volatile unsigned long lastRRise = 0;
 volatile unsigned long lastLRise = 0;
-#define  ENC_HIGH_DELAY   10
+volatile unsigned long lastBumpRise = 0;
+#define ENC_HIGH_DELAY 50
+#define  WHISKER_HIGH_DELAY   0
 
 byte PBMask = 0;
 byte PCMask = 0;
 byte PDMask = 0;
 
-volatile byte pinFunction[10];     // Store the currently assigned fucntion
-                                       //  of the PCINT associated with each pin
-                                       //  in this array. Array indices are of
-                                       //  the type "PCINT_pinname".
-                                       
+volatile byte pinFunction[10];     // Store the currently assigned function
+                                   //  of the PCINT associated with each pin
+                                   //  in this array. Array indices are of
+                                   //  the type "PCINT_pinname".
+                                   
 extern void (*whiskerAction[10])(void); // Declared in RedBotBumper.cpp
 
 extern RedBotEncoder *encoderObject;   // Declared in RedBotEncoder.cpp
@@ -75,11 +76,13 @@ void PC0Handler(byte PBTemp)
   {
     pinFunctionHandler(PCINT_9);
   }
+  
   else if (!(lastPC0PinState & 0x02) && (PBTemp & 0x02)) // a rising edge
   {
-    if (pinFunction[PCINT_9] == LENCODER) lastLRise = millis();
-    if (pinFunction[PCINT_9] == RENCODER) lastRRise = millis();
-  }
+    if (pinFunction[PCINT_9] == LENCODER) lastLRise = micros();
+    if (pinFunction[PCINT_9] == RENCODER) lastRRise = micros();
+	if (pinFunction[PCINT_9] == WHISKER) lastBumpRise = millis();
+	}
   // Was it pin 10, AKA PB2?
   if ((lastPC0PinState & 0x04) && !(PBTemp & 0x04)) // a falling edge
   {
@@ -87,19 +90,23 @@ void PC0Handler(byte PBTemp)
   }
   else if (!(lastPC0PinState & 0x04) && (PBTemp & 0x04)) // a rising edge
   {
-    if (pinFunction[PCINT_10] == LENCODER) lastLRise = millis();
-    if (pinFunction[PCINT_10] == RENCODER) lastRRise = millis();
+    if (pinFunction[PCINT_10] == LENCODER) lastLRise = micros();
+    if (pinFunction[PCINT_10] == RENCODER) lastRRise = micros();
+	if (pinFunction[PCINT_10] == WHISKER) lastBumpRise = millis();
   }
-  // Was it pin 11, AKA PB3?
+    // Was it pin 11, AKA PB3?
   if ((lastPC0PinState & 0x08) && !(PBTemp & 0x08)) // a falling edge
   {
     pinFunctionHandler(PCINT_11);
   }
+  
   else if (!(lastPC0PinState & 0x04) && (PBTemp & 0x04)) // a rising edge
   {
-    if (pinFunction[PCINT_11] == LENCODER) lastLRise = millis();
-    if (pinFunction[PCINT_11] == RENCODER) lastRRise = millis();
+    if (pinFunction[PCINT_11] == LENCODER) lastLRise = micros();
+    if (pinFunction[PCINT_11] == RENCODER) lastRRise = micros();
+	if (pinFunction[PCINT_11] == WHISKER) lastBumpRise = millis();
   }
+  
   lastPC0PinState = PBTemp;
 }
 
@@ -188,7 +195,6 @@ void PC1Handler(byte PCTemp)
   }
   lastPC1PinState = PCTemp;
 }
-
 ISR(PCINT2_vect)
 {
 
@@ -227,15 +233,16 @@ void pinFunctionHandler(byte pinIndex)
   switch(pinFunction[pinIndex])
   {
     case LENCODER:
-      if (lastLRise + ENC_HIGH_DELAY < millis()) encoderObject->wheelTick(LEFT);
+	  if (lastLRise + ENC_HIGH_DELAY < micros()) encoderObject->wheelTick(LEFT);
+	  //encoderObject->wheelTick(LEFT);
       break;
     case RENCODER:
-      if (lastRRise + ENC_HIGH_DELAY < millis()) encoderObject->wheelTick(RIGHT);
+      if (lastRRise + ENC_HIGH_DELAY < micros()) encoderObject->wheelTick(RIGHT);
+	  //encoderObject->wheelTick(RIGHT);
       break;
     case WHISKER:
-      sei();
       (*whiskerAction[pinIndex])();
-      break;
+	  break;
     case SW_SERIAL:
       RBSPObject->recv();
     case NOT_IN_USE:
