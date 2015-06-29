@@ -178,7 +178,7 @@ void RedBotMotors::leftMotor(int speed, int duration)
   }
   else
   {
-    leftRev((byte)(abs(speed)));
+    leftFwd((byte)(abs(speed)));
   }
   delay(duration);
   leftStop();
