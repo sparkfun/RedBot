@@ -24,6 +24,7 @@ Documentation
 
 * **[Installing an Arduino Library Guide](https://learn.sparkfun.com/tutorials/installing-an-arduino-library)** - Basic information on how to install an Arduino library.
 * **[Product Repository](https://github.com/sparkfun/RedBot)** - Main repository (including hardware files) for the RedBot.
+* **[Library Repository](https://github.com/sparkfun/SparkFun_Redbot_Arduino_Library)** - Arduino library for the RedBot.
 * **[Assembly Guide](https://learn.sparkfun.com/tutorials/assembly-guide-for-redbot-with-shadow-chassis)** - Basic hookup guide for the RedBot.
 * **[Experiment Guide](https://learn.sparkfun.com/tutorials/experiment-guide-for-redbot-with-shadow-chassis)** - Experiment guide for the RedBot.
 
