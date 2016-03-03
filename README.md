@@ -5,6 +5,10 @@ SparkFun RedBot
 
 [*RedBot Mainboard*](https://www.sparkfun.com/products/11622)
 
+![RedBot Kit](https://cdn.sparkfun.com//assets/parts/9/3/4/3/SIK_Shadow_Chasis.jpg)  
+
+[*RedBot Kit*](https://www.sparkfun.com/products/12649)
+
 Design files and firmware files for the [RedBot Main board](https://www.sparkfun.com/products/11622).
 
 Repository Contents
