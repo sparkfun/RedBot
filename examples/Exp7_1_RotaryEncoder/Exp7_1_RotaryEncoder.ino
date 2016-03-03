@@ -1,5 +1,5 @@
 /***********************************************************************
- * Exp7_1_RotaryEncoder -- RedBot Experiment 7
+ * Exp7_1_RotaryEncoder -- RedBot Experiment 7_1
  * 
  * Knowing where your robot is can be very important. The RedBot supports
  * the use of an encoder to track the number of revolutions each wheels has

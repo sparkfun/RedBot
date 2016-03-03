@@ -1,5 +1,5 @@
 /***********************************************************************
- * Exp4_MakingSounds -- RedBot Experiment 4
+ * Exp4_1_MakingSounds -- RedBot Experiment 4.1
  *
  * Push the button (D12) to make some noise and start running!
  *
