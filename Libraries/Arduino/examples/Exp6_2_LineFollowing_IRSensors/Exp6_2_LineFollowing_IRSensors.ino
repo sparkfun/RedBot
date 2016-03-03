@@ -1,5 +1,5 @@
 /***********************************************************************
- * Exp6_2_LineFollowing_IRSensors -- RedBot Experiment 6
+ * Exp6_2_LineFollowing_IRSensors -- RedBot Experiment 6_2
  *
  * This code reads the three line following sensors on A3, A6, and A7
  * and prints them out to the Serial Monitor. Upload this example to your
