@@ -21,12 +21,17 @@
 
 #include <RedBot.h>
 RedBotMotors motors;
-int motorPower;  // variable for setting the drive power
+int leftPower;  // variable for setting the drive power
+int rightPower;
 int data;  // variable for holding incoming data from PC to Arduino
 
 void setup(void)
 {
   Serial.begin(9600);
+  Serial.print("Enter in left and right motor power values and click [Send]."); 
+  Serial.print("Separate values with a space or non-numeric character.");
+  Serial.println();
+  Serial.print("Positive values spin the motor CW, and negative values spin the motor CCW.");
 }
 
 void loop(void)
@@ -34,8 +39,14 @@ void loop(void)
   // if there is data coming in on the Serial monitor, do something with it.
   if(Serial.available() > 0)
   {
-    data = Serial.parseInt();
-    data = constrain(data, -255, 255);  // constrain the data to -255 to +255
-    motors.drive(data);
+    leftPower = Serial.parseInt();  // read in the next numeric value
+    leftPower = constrain(leftPower, -255, 255);  // constrain the data to -255 to +255
+    
+    rightPower = Serial.parseInt();   // read in the next numeric value
+    rightPower = constrain(rightPower, -255, 255);  // constrain the data to -255 to +255
+
+    motors.leftMotor(leftPower);
+    motors.rightMotor(rightPower);
+    
   }  
 }

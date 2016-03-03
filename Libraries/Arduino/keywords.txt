@@ -1,0 +1,55 @@
+#######################################
+# Syntax Coloring Map For RedBot
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+RedBotMotors			KEYWORD1
+RedBotSensor			KEYWORD1
+RedBotEncoder			KEYWORD1
+RedBotAccel				KEYWORD1
+RedBotBumper			KEYWORD1
+RedBotSoftwareSerial 	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+drive			KEYWORD2
+pivot			KEYWORD2
+rightMotor		KEYWORD2
+leftMotor		KEYWORD2
+rightDrive		KEYWORD2
+leftDrive		KEYWORD2
+stop			KEYWORD2
+coast			KEYWORD2
+brake			KEYWORD2
+rightStop		KEYWORD2
+leftStop		KEYWORD2
+rightCoast		KEYWORD2
+leftCoast		KEYWORD2
+leftBrake		KEYWORD2
+rightBrake		KEYWORD2
+clearEnc		KEYWORD2
+getTicks		KEYWORD2
+read			KEYWORD2
+check			KEYWORD2
+setBGLevel		KEYWORD2
+setDetectLevel	KEYWORD2
+calStatus		KEYWORD2
+enableBump		KEYWORD2
+checkBump		KEYWORD2
+setBumpThresh	KEYWORD2
+RedBotRadio		KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+NOT_IN_USE		LITERAL1
+WHISKER			LITERAL1
+LENCODER		LITERAL1
+RENCODER		LITERAL1
+SW_SERIAL		LITERAL1

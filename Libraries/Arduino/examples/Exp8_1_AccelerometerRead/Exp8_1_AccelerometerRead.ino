@@ -33,6 +33,10 @@ RedBotAccel accelerometer;
 void setup(void)
 {
   Serial.begin(9600);
+  Serial.println("Accelerometer Readings:");
+  Serial.println();
+  Serial.println("(X, Y, Z) -- [X-Z, Y-Z, X-Y]");
+  Serial.println("============================");
 }
 
 void loop(void)
