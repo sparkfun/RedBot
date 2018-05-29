@@ -1,13 +1,16 @@
 SparkFun RedBot
 ===============
 
-![RedBot Mainboard](https://dlnmh9ip6v2uc.cloudfront.net/images/products/1/1/6/2/2/11622-01a_medium.jpg)  
-
-[*RedBot Mainboard*](https://www.sparkfun.com/products/11622)
-
-![RedBot Kit](https://cdn.sparkfun.com//assets/parts/9/3/4/3/SIK_Shadow_Chasis.jpg)  
-
-[*RedBot Kit*](https://www.sparkfun.com/products/12649)
+<table class="table table-hover table-striped table-bordered">
+  <tr align="center">
+   <td><a href="https://www.sparkfun.com/products/12097"><img src="https://cdn.sparkfun.com/assets/parts/8/7/3/4/12097-01.jpg" title="RedBot Mainboard"></a></td>
+   <td><a href="https://www.sparkfun.com/products/12649"><img src="https://cdn.sparkfun.com//assets/parts/9/3/4/3/SIK_Shadow_Chasis.jpg" title="RedBot Inventor's Kit for RedBot"></a></td>
+  </tr>
+  <tr align="center">
+    <td>RedBot Mainboard [<a href="https://www.sparkfun.com/products/12097">ROB-12097</a>]</td>
+    <td>SparkFun Inventor's Kit for RedBot [<a href="https://www.sparkfun.com/products/12649">ROB-12649</a>]</td>
+  </tr>
+</table>
 
 Design files and firmware files for the [RedBot Main board](https://www.sparkfun.com/products/11622).
 
@@ -33,14 +36,14 @@ Product Versions
 ----------------
 This repository only contains the hardware files for the RedBot Main board. There are several different support products available for the RedBot Kit however.
 
-* [ROB-12097](https://www.sparkfun.com/products/12097)- RedBot Main Board.
-* [ROB-13166] (https://www.sparkfun.com/products/13166)- RedBot Basic Kit
+* [ROB-12097](https://www.sparkfun.com/products/12097) - RedBot Main Board.
+* [ROB-13166 (RETIRED)](https://www.sparkfun.com/products/13166) - RedBot Basic Kit
 * [ROB-12649](https://www.sparkfun.com/products/12649) - Redbot SparkFun Inventor's Kit
 * [ROB-12567](https://www.sparkfun.com/products/12567) - Redbot Buzzer
 * [SEN-11999](https://www.sparkfun.com/products/11999) - Redbot Mechanical Bumper
 * [SEN-12589](https://www.sparkfun.com/products/12589) - Redbot Accelerometer
 * [SEN-11769](https://www.sparkfun.com/products/11769) - Redbot Line Sensor
-* [SEN-13582](https://www.sparkfun.com/products/13582) - Line Follower Array
+* [SEN-13582](https://www.sparkfun.com/products/13582) - SparkFun Line Follower Array
 
 License Information
 -------------------
