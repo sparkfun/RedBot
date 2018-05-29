@@ -37,12 +37,12 @@ Product Versions
 This repository only contains the hardware files for the RedBot Main board. There are several different support products available for the RedBot Kit however.
 
 * [ROB-12097](https://www.sparkfun.com/products/12097) - RedBot Main Board.
-* [ROB-12649](https://www.sparkfun.com/products/12649) - Redbot SparkFun Inventor's Kit
+* [ROB-12649](https://www.sparkfun.com/products/12649) - RedBot SparkFun Inventor's Kit
 * *[ROB-13166 (RETIRED)](https://www.sparkfun.com/products/13166) - RedBot Basic Kit*
-* [ROB-12567](https://www.sparkfun.com/products/12567) - Redbot Buzzer
-* [SEN-11999](https://www.sparkfun.com/products/11999) - Redbot Mechanical Bumper
-* [SEN-12589](https://www.sparkfun.com/products/12589) - Redbot Accelerometer
-* [SEN-11769](https://www.sparkfun.com/products/11769) - Redbot Line Sensor
+* [ROB-12567](https://www.sparkfun.com/products/12567) - RedBot Buzzer
+* [SEN-11999](https://www.sparkfun.com/products/11999) - RedBot Mechanical Bumper
+* [SEN-12589](https://www.sparkfun.com/products/12589) - RedBot Accelerometer
+* [SEN-11769](https://www.sparkfun.com/products/11769) - RedBot Line Sensor
 * [SEN-13582](https://www.sparkfun.com/products/13582) - SparkFun Line Follower Array
 
 License Information
